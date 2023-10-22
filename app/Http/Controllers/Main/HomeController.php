@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\BlogPost;
 use App\Models\FoodStuff;
+use App\Models\Activity;
+
 
 class HomeController extends Controller
 {
@@ -21,7 +23,8 @@ class HomeController extends Controller
     }
 
     public function activities(){
-        return view('main.activities');
+        $activities = Activity::paginate(20);
+        return view('main.activities', compact('activities'));
     }
     public function affiliate(){
         return view('main.affiliate');
