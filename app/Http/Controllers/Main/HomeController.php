@@ -17,9 +17,13 @@ class HomeController extends Controller
     }
 
     public function store(){
-        $foodstuffs = FoodStuff::paginate(50);
-        dd($foodstuffs);
-        return view('main.store', compact('foodstuffs'));
+        $foodStuffs = FoodStuff::paginate(50);
+        $pageItemRangeDisplay = '';
+        $totalRelatedFoodStuffItems = '';
+        $foodStuffListItemsLength = '';
+
+        // dd($foodstuffs);'
+        return view('main.store', compact('foodStuffs', 'pageItemRangeDisplay', 'totalRelatedFoodStuffItems', 'foodStuffListItemsLength'));
     }
 
     public function activities(){

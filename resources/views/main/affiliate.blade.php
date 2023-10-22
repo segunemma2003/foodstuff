@@ -21,12 +21,17 @@
                                 @ViewBag.corePageName
                             </li> --}}
                             <li class="breadcrumb-item">
-                                <a href="{{ route('home', ['page' => $prevPageLink]) }}">
+                                {{-- <a href="{{ route('home', ['page' => $prevPageLink]) }}">
                                     {{ $prevPageName }}
+                                </a> --}}
+                                <a href="">
                                 </a>
                             </li>
-                            <li class="breadcrumb-item active theme-cl" aria-current="page">
+                            {{-- <li class="breadcrumb-item active theme-cl" aria-current="page">
                                 {{ $corePageName }}
+                            </li> --}}
+                            <li class="breadcrumb-item active theme-cl" aria-current="page">
+                                {{-- {{ $corePageName }} --}}
                             </li>
                             
                         </ol>
