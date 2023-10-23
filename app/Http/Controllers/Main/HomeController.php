@@ -77,50 +77,77 @@ class HomeController extends Controller
         $model = [''];
         return view('main.last_purchase', compact('model'));
     }
+
+    public function logistics(){
+        $model = [''];
+        return view('main.logistics', compact('model'));
+    }
     public function likes(){
         $model = [''];
         return view('main.likes', compact('model'));
     }
 
-    public function mailing(){
-        return view('main.mailing_list');
+    public function manageaddress(){
+        return view('main.manage_address');
+    }
+    public function manageinvoice(){
+        return view('main.manage_invoice');
     }
 
-    public function order(){
-        return view('main.order');
+    public function managerestaurants(){
+        return view('main.manage_restaurants');
     }
+
     public function restaurant(){
-        return view('main.restaurant');
+        return view('main.open_restaurant');
     }
-    public function restaurantdish(){
-        return view('main.restaurantdish');
+    public function ourapp(){
+        return view('main.ourapp');
     }
-    public function restaurantdistribution(){
-        return view('main.restaurantdistribution');
+    public function ourstory(){
+        return view('main.ourstory');
     }
-    public function restaurantmenu(){
-        return view('main.restaurantmenu');
-    }
-
-    public function revenueindex(){
-        return view('main.revenueindex');
-    }
-    public function searchkey(){
-        return view('main.searchkey');
-    }
-    public function shoppinglist(){
-        return view('main.shoppinglist');
+    public function privacy(){
+        return view('main.privacy');
     }
 
-    public function trackinglog(){
-        return view('main.trackinglog');
+    public function refund(){
+        return view('main.refund');
     }
-    public function user(){
-        return view('main.user');
+    public function requestinvoice(){
+        return view('main.requestinvoice');
+    }
+    public function shoppingpolicy(){
+        return view('main.shoppingpolicy');
     }
 
-    public function weekly(){
-        return view('main.weekly');
+    public function signin(){
+        return view('main.signin');
+    }
+    public function signup(){
+        return view('main.signup');
+    }
+
+    public function statistics(){
+        return view('main.statistics');
+    }
+
+    public function storedistribution(){
+        return view('main.store_distribution');
+    }
+
+    public function storereset(){
+        return view('main.store_reset');
+    }
+    public function success(){
+        return view('main.success');
+    }
+
+    public function terms(){
+        return view('main.terms');
+    }
+    public function topup(){
+        return view('main.topup');
     }
 
 }
