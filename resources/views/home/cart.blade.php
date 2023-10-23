@@ -238,4 +238,5 @@
 @*Save quantity value to hidden input field*@
 <script>function SaveQuantityFunc(inputID) {
     document.getElementById('quantityInput_' + inputID).value = document.getElementById("input_"+inputID).value;
-    }</script>
+    }
+</script>

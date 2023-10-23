@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Main;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Cart;
+use App\Models\Activity;
 use App\Models\BlogPost;
 use App\Models\FoodStuff;
-use App\Models\Activity;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 
 class HomeController extends Controller
@@ -35,13 +36,18 @@ class HomeController extends Controller
     }
 
     public function blog(){
-        return view('main.blog');
+        $blogPosts = BlogPost::all();
+        return view('main.blog', compact('blogPosts'));
     }
     public function buynow(){
         return view('main.buynow');
     }
     public function cart(){
-        return view('main.cart');
+        $cart = Cart::paginate(10);
+        $cartItemCount = '';
+        $shippingCost = '';
+        $cartTotal = '';
+        return view('main.cart', compact('cart', 'cartItemCount', 'shippingCost', 'cartTotal'));
     }
     public function checkout(){
         return view('main.checkout');
