@@ -294,7 +294,8 @@
 @*Script 1 for Paystack payment*@
 <script src="https://js.paystack.co/v1/inline.js"></script>
 @*Script 2 for Paystack payment*@
-<script>const paymentForm = document.getElementById('paymentForm');
+<script>
+    const paymentForm = document.getElementById('paymentForm');
     paymentForm.addEventListener("submit", payWithPaystack, false);
     function payWithPaystack(e) {
         e.preventDefault();
@@ -322,7 +323,8 @@
             }
         });
         handler.openIframe();
-    }</script>
+    }
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/swipe-pay@2.0.1"></script>
 <script type="text/javascript" src="swipe-pay-widget.js"></script>
