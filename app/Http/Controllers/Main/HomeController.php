@@ -74,10 +74,12 @@ class HomeController extends Controller
         return view('main.help_center', compact('model'));
     }
     public function last_purchase(){
-        return view('main.last_purchase');
+        $model = [''];
+        return view('main.last_purchase', compact('model'));
     }
     public function likes(){
-        return view('main.likes');
+        $model = [''];
+        return view('main.likes', compact('model'));
     }
 
     public function mailing(){
