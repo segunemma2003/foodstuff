@@ -50,7 +50,9 @@ class HomeController extends Controller
         return view('main.cart', compact('cart', 'cartItemCount', 'shippingCost', 'cartTotal'));
     }
     public function checkout(){
-        return view('main.checkout');
+        $cart = Cart::paginate(10);
+        $cartItemCount = '';
+        return view('main.checkout', compact('cart','cartItemCount'));
     }
     public function contact(){
         return view('main.contact');
@@ -68,7 +70,8 @@ class HomeController extends Controller
         return view('main.eula');
     }
     public function help_center(){
-        return view('main.help_center');
+        $model = [''];
+        return view('main.help_center', compact('model'));
     }
     public function last_purchase(){
         return view('main.last_purchase');
