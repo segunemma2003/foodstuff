@@ -136,7 +136,8 @@ class HomeController extends Controller
     }
 
     public function storedistribution(){
-        return view('main.store_distribution');
+        $isWebView = '';
+        return view('main.store_distribution', compact('isWebView'));
     }
 
     public function storereset(){
@@ -147,10 +148,12 @@ class HomeController extends Controller
     }
 
     public function terms(){
-        return view('main.terms');
+        $foodStuffStore = FoodStuff::paginate(15);
+        return view('main.terms', compact('foodStuffStore'));
     }
     public function topup(){
-        return view('main.topup');
+        $Model = [''];
+        return view('main.topup', compact('Model'));
     }
 
 }
