@@ -120,8 +120,8 @@ class HomeController extends Controller
         $selectedRIProduct = '';
         return view('main.requestinvoice', compact('FoodStuffs', 'selectedRIProduct'));
     }
-    public function shoppingpolicy(){
-        return view('main.shoppingpolicy');
+    public function shippingpolicy(){
+        return view('main.shippingpolicy');
     }
 
     public function signin(){
