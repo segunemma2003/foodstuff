@@ -116,7 +116,9 @@ class HomeController extends Controller
         return view('main.refund');
     }
     public function requestinvoice(){
-        return view('main.requestinvoice');
+        $FoodStuffs = FoodStuff::paginate(15);
+        $selectedRIProduct = '';
+        return view('main.requestinvoice', compact('FoodStuffs', 'selectedRIProduct'));
     }
     public function shoppingpolicy(){
         return view('main.shoppingpolicy');
