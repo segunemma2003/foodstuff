@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Main\HomeController;
+use App\Http\Controllers\Main\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,7 +19,8 @@ use App\Http\Controllers\Main\HomeController;
 // });
 
 
-// Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index']);
 // Route::get('/home/store', [HomeController::class, 'store'])->name('home.store');
 // Route::get('/home/activities', [])
 Route::auto('/home', HomeController::class);
+Route::auto('/admin', AdminController::class);
