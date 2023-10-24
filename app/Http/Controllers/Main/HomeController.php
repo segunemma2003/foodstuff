@@ -91,7 +91,8 @@ class HomeController extends Controller
         return view('main.manage_address');
     }
     public function manageinvoice(){
-        return view('main.manage_invoice');
+        $ViewBag = [''];
+        return view('main.manage_invoice', compact('ViewBag'));
     }
 
     public function managerestaurants(){

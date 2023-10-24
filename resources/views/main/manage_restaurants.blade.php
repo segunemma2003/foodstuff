@@ -1,5 +1,5 @@
 @extends('shared.layout')
-@section('Title', "Restaurant")
+@section('Title', "Manage Restaurant")
 @section('content')
 <style>
     .tag-container {
