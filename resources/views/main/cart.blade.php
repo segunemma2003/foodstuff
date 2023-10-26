@@ -1,8 +1,6 @@
 @extends('shared.layout')
 @section('Title', "Cart")
 @section('content')
-
-
 <!-- Page Title Section -->
 <section class="page-title gray">
     <div class="container">

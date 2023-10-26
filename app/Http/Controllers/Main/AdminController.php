@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
+use App\Models\Blogpost;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -12,31 +14,48 @@ class AdminController extends Controller
     }
 
     public function activities(){
-        return view('admins.activities');
+        $selectedActivityListLimit = '';
+        $selectedActivityStatus = '';
+        $activities = Activity::paginate(15);
+
+        return view('admins.activities', compact('selectedActivityListLimit', 'selectedActivityStatus', 'activities'));
     }
     public function addproduct(){
         return view('admins.add_product');
     }
     public function aboutapp(){
-        return view('admins.aboutapp');
+        $modelChangeLog = [''];
+        return view('admins.aboutapp', compact('modelChangeLog'));
     }
     public function adduser(){
         return view('admins.adduser');
     }
     public function ad(){
-        return view('admins.admins');
+        $adminListLimits = [''];
+        $adminRolls = [''];
+        return view('admins.admins', compact('adminListLimits', 'adminRolls'));
     }
     public function default(){
         return view('admins.default');
     }
     public function blog(){
-        return view('admins.blogger');
+        // $posts = Blogpost::paginate(20);
+        $posts  = [''];
+        return view('admins.blogger', compact('posts'));
     }
     public function changelog(){
-        return view('admins.change_log');
+        $modeList = [''];
+        $list = [''];
+        $changeLog = [''];
+        return view('admins.change_log', compact('modeList', 'list', 'changeLog'));
     }
     public function invoice(){
-        return view('admins.invoice');
+        $yearList = [''];
+        $billList = [''];
+        $list = [''];
+        $list2 = [''];
+        $invoices = [''];
+        return view('admins.invoice', compact('yearList', 'billList', 'list', 'list2', 'invoices'));
     }
     public function mailinglist(){
         return view('admins.mailing_list');
