@@ -77,7 +77,8 @@ class AdminController extends Controller
         return view('admins.restaurants', compact('restaurants'));
     }
     public function notifications(){
-        return view('admins.notifications');
+        $notifications = [''];
+        return view('admins.notifications', compact('notifications'));
     }
     public function products(){
         return view('admins.products');
@@ -86,12 +87,14 @@ class AdminController extends Controller
         return view('admins.signin');
     }
     public function updateform(){
-        return view('admins.update_form');
+        $formName = '';
+        return view('admins.update_form', compact('formName'));
     }
     public function profile(){
         return view('admins.user_profile');
     }
     public function users(){
-        return view('admins.users');
+        $userList = [''];
+        return view('admins.users', compact('userList'));
     }
 }
