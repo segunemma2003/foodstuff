@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Main;
 use App\Http\Controllers\Controller;
 use App\Models\Activity;
 use App\Models\Blogpost;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -58,16 +59,22 @@ class AdminController extends Controller
         return view('admins.invoice', compact('yearList', 'billList', 'list', 'list2', 'invoices'));
     }
     public function mailinglist(){
-        return view('admins.mailing_list');
+        $list = [''];
+        $list2 = [''];
+        $mailingList = [''];
+        return view('admins.mailing_list', compact('list', 'list2', 'mailingList'));
     }
     public function manageinvoice(){
-        return view('admins.manage_invoice');
+        $users = [''];
+        return view('admins.manage_invoice', compact('users'));
     }
     public function restaurantdish(){
-        return view('admins.restaurantdish');
+        $model = [''];
+        return view('admins.restaurantdish', compact('model'));
     }
     public function restaurants(){
-        return view('admins.restaurants');
+        $restaurants = '';
+        return view('admins.restaurants', compact('restaurants'));
     }
     public function notifications(){
         return view('admins.notifications');
