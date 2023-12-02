@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Main;
 
 use App\Models\Cart;
 use App\Models\Activity;
-use App\Models\BlogPost;
+use App\Models\Blogpost;
 use App\Models\FoodStuff;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -13,7 +13,7 @@ use App\Http\Controllers\Controller;
 class HomeController extends Controller
 {
     public function index(){
-        $blogposts = BlogPost::all();
+        $blogposts = Blogpost::all();
         return view('main.home', compact('blogposts'));
     }
 
