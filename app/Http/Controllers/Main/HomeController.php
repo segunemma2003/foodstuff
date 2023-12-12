@@ -36,7 +36,7 @@ class HomeController extends Controller
     }
 
     public function blog(){
-        $blogPosts = BlogPost::all();
+        $blogPosts = Blogpost::all();
         return view('main.blog', compact('blogPosts'));
     }
     public function buynow(){
