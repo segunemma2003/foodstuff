@@ -52,7 +52,7 @@
         </div>
 
         <div class="row align-items-center justify-content-between">
-{{ $foodStuffs=>links() }}
+{{ $foodStuffs->links() }}
             {{-- @if ($currentPage == 1) --}}
                 {{--  <div class="col-xl-12 col-lg-12 col-md-12">
                     <nav>
