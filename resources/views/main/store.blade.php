@@ -30,13 +30,13 @@
                                     @endif
                                 </div>
                             </div>
-                            
-                                
+
+
                         </div>
                     </div>
 
                     <div class="modal fade" id="desc_{{ $data->ID }}" tabindex="-1" role="dialog" aria-labelledby="loginoutmodal" aria-hidden="true">
-                    
+
                     </div>
                 @endforeach
             @else
@@ -52,9 +52,9 @@
         </div>
 
         <div class="row align-items-center justify-content-between">
-
+{{ $foodStuffs=>links() }}
             {{-- @if ($currentPage == 1) --}}
-                <div class="col-xl-12 col-lg-12 col-md-12">
+                {{--  <div class="col-xl-12 col-lg-12 col-md-12">
                     <nav>
                         <ul class="pagination smalls m-0">
                             <li class="page-item disabled">
@@ -80,7 +80,7 @@
                             @endif
                         </ul>
                     </nav>
-                </div>
+                </div>  --}}
             {{-- @elseif ($currentPage != 1 && $foodStuffListItemsLength < 20) --}}
                 <div class="col-xl-12 col-lg-12 col-md-12">
                     <nav>
@@ -131,7 +131,7 @@
 
     <div class="row align-items-center justify-content-between mt-4">
         <div class="col-xl-12 col-lg-12 col-md-12">
-            
+
             <button type="submit" style="color:#E10C2C; background-color:transparent; border:none;"><span> ← </span>Back
                 To Home</button>
 
@@ -153,10 +153,10 @@
             type: 'POST',
             data: $('#addToCartForm').serialize(),
             error: function (xhr, status, error) {
-                
+
             },
             success: function (response) {
-                
+
             }
         });
         document.getElementById("alertSnackBar").value = "🛍️  Item added to cart";
@@ -179,10 +179,10 @@
             type: 'POST',
             data: $('#likeAnItemForm').serialize(),
             error: function (xhr, status, error) {
-               
+
             },
             success: function (response) {
-              
+
             }
         });
         document.getElementById("alertSnackBar").value = "You ❤️ an item";
