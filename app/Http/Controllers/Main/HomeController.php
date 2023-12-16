@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Main;
 use App\Models\Cart;
 use App\Models\Activity;
 use App\Models\Blogpost;
-use App\Models\FoodStuff;
+use App\Models\Foodstuff as FoodStuff;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
