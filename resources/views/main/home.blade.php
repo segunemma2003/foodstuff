@@ -84,7 +84,9 @@
         <div class="row align-items-center justify-content-between mb-5">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                 <div class="lmp_caption">
-                    <h2 class="mb-3">Resolving the Food distribution challenge in africa and globally</h2>
+                    <h2 class="mb-3">
+                        Resolving the Food distribution challenge in africa and globally
+                    </h2>
                     <p>
                         In 2020  over 100 million Africans faced crisis, emergency, or catastrophic levels of food insecurity, an increase of more than 60% from the previous year.
                         In 2021, food insecurity is predicted to worsen much further.
@@ -171,7 +173,7 @@
                                 <h4>Create A List</h4>
                                 <p>
                                     Create a list of food products without having an account with Food Stuff Store. Our platform provides you with minimal yet suitable
-                                    tools for creating a well detailed list of the food items you want. With our miminal interface you can set the weight, color, size
+                                    tools for creating a well detailed list of the food items you want. With our miminal {{ "interface" }} you can set the weight, color, size
                                     and price range of your listed items and we will see to it that we find the best deals available in the market to satisfy your list.
                                 </p>
                             </div>
@@ -320,11 +322,6 @@
 
         <div class="row justify-content-center">
 
-          {{--  if (Model.BlogPosts != null)  --}}
-
-                    {{--  foreach (var Data in Model.BlogPosts)  --}}
-
-
                     @if (!$blogposts->isEmpty())
                     <div class="row">
                         @foreach ($blogposts as $data)
@@ -422,10 +419,10 @@
 
                 <div class="call_action_wrap">
                     <div class="call_action_wrap-head">
-                        <h3>Do You Have A Shopping List?</h3>
+                        <h3>Do You Have A Shopping List {{ "?" }} </h3>
                         <span>Based of your budget, we'll help you negotiate price with our suppliers and get back to you shortly.</span>
                     </div>
-                    <a asp-area="" asp-controller="Home" asp-action="RequestInvoice" class="btn btn-call_action_wrap">Create Shopping List</a>
+                    <a  asp-controller="Home" asp-action="RequestInvoice" class="btn btn-call_action_wrap text-dark">Create Shopping List</a>
                 </div>
 
             </div>
@@ -457,10 +454,12 @@
 </div>
 <!-- End Modal -->
 
-<script>function playYoutubeVideo() {
+<script>
+    function playYoutubeVideo() {
         $("#content").hide();
         $("#yt")[0].src += "?autoplay=1";
         setTimeout(function () { $("#yt").show(); }, 200);
-    }</script>
+    }
+</script>
 
 @endsection
