@@ -332,9 +332,9 @@
         </div>
 
         <div class="row align-items-center justify-content-between">
-
+{{ $foodStuffs=>links() }}
             {{-- @if ($currentPage == 1) --}}
-                <div class="col-xl-12 col-lg-12 col-md-12">
+                {{--  <div class="col-xl-12 col-lg-12 col-md-12">
                     <nav>
                         <ul class="pagination smalls m-0">
                             <li class="page-item disabled">
@@ -360,7 +360,7 @@
                             @endif
                         </ul>
                     </nav>
-                </div>
+                </div>  --}}
             {{-- @elseif ($currentPage != 1 && $foodStuffListItemsLength < 20) --}}
                 <div class="col-xl-12 col-lg-12 col-md-12">
                     <nav>
