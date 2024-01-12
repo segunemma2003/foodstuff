@@ -39,11 +39,7 @@ class HomeController extends Controller
     }
 
     public function blog(){
-<<<<<<< HEAD
         $blogPosts = Blogpost::all();
-=======
-        $blogPosts = BlogPost::all();
->>>>>>> a146d99 (work done: blog, cart, buynow & cart)
         return view('main.blog', compact('blogPosts'));
     }
     public function buynow(){
