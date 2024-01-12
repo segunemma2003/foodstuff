@@ -55,12 +55,12 @@
                         by <a href="www.swipe.ng" target="_blank" style="color: #E10C2C;">Swipe NG</a>. At the point of payment, if you don't own
                         an account with Swipe, you will be required to create one.
                     </p>
-                    
+
                 </div>
             </div>
             <div class="col-lg-4 col-md-4">
                 <div class="aps_crs_img mt-5">
-                    <img 
+                    <img
                     src="{{asset('assets/img/BuyNowPayLater.png')}}"
                     class="img-fluid" alt="" />
                 </div>
