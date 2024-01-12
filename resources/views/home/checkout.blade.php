@@ -201,11 +201,11 @@
                                                               pay-amount='@ViewBag.total'
                                                               fallback-url='https://app.swipe.ng/'></swipe-pay-widget>
 
-                                                
+
                                             </div>
                                         }
                                     }
-                                    
+
                                     @{
                                         if (ViewBag.useFlutterwavePG.ToString() == "true")
                                         {

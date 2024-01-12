@@ -3,10 +3,10 @@
         <nav id="navigation" class="navigation navigation-landscape">
             <div class="nav-header">
                 <a class="nav-brand" href="/">
-                    <img 
+                    <img
                     src="{{asset('assets/img/FSSLOGO1.png')}}"
                      class="logo" alt="" />
-                 
+
                 </a>
                 <div class="nav-toggle"></div>
                 <div class="mobile_nav">
@@ -40,7 +40,11 @@
                                 {  --}}
                                 @if(1===0)
                                     <li>
+<<<<<<< HEAD
                                         <a asp-action="Cart" class="crs_yuo12">
+=======
+                                        <a asp-area="" asp-controller="Home" asp-action="Cart" class="crs_yuo12">
+>>>>>>> f6d04ab (changes)
                                             <span class="embos_45"><i class="fas fa-shopping-basket"></i></span>
                                         </a>
                                     </li>
@@ -106,13 +110,13 @@
                         @if(false)
                             <li class="active">
                                 <a asp-area="" asp-controller="Home"
-                                href="{{ route('home.signin') }}" 
+                                href="{{ route('home.signin') }}"
                                 asp-action="RequestInvoice">Create Shopping List</a>
                             </li>
                       @else
                             <li>
-                                <a 
-                                href="{{ route('home.signin') }}" 
+                                <a
+                                href="{{ route('home.signin') }}"
                               asp-action="RequestInvoice">Create Shopping List</a>
                             </li>
                       @endif
@@ -125,15 +129,15 @@
                                 <a href="#">Services<span class="submenu-indicator"></span></a>
                                 <ul class="nav-dropdown nav-submenu">
 
-                                    <li><a 
+                                    <li><a
                                      href="{{ route('home.signin') }}" >Create Shopping List</a></li>
 
-                                    <li><a 
-                                        href="{{ route('home.logistics') }}" 
+                                    <li><a
+                                        href="{{ route('home.logistics') }}"
                                         >Logistics and Distribution</a></li>
                                     <li><a asp-action="OurApps">Our App</a></li>
-                                    <li><a 
-                                        href="{{ route('home.buynow') }}" 
+                                    <li><a
+                                        href="{{ route('home.buynow') }}"
                                         >Buy Now Pay Later</a></li>
                                     <li><a  href="{{ route('home.affiliate') }}" >Affiliate Program</a></li>
                                 </ul>
@@ -142,23 +146,23 @@
                             <li>
                                 <a href="#">Services<span class="submenu-indicator"></span></a>
                                 <ul class="nav-dropdown nav-submenu">
-                                    <li><a 
+                                    <li><a
                                         href="{{ route('home.signin') }}" asp-action="RequestInvoice">Create Shopping List</a></li>
-                                    <li><a 
-                                        href="{{ route('home.storedistribution') }}" 
+                                    <li><a
+                                        href="{{ route('home.storedistribution') }}"
                                         asp-action="StoreDistribution">Store Distribution</a></li>
 
-                                    <li><a 
-                                        href="{{ route('home.logistics') }}" 
+                                    <li><a
+                                        href="{{ route('home.logistics') }}"
                                        >Logistics and Distribution</a></li>
-                                    <li><a 
-                                        href="{{ route('home.ourapp') }}"     
+                                    <li><a
+                                        href="{{ route('home.ourapp') }}"
                                     asp-action="OurApps">Our App</a></li>
-                                    <li><a 
-                                        href="{{ route('home.buynow') }}" 
+                                    <li><a
+                                        href="{{ route('home.buynow') }}"
                                         >Buy Now Pay Later</a></li>
-                                    <li><a 
-                                        href="{{ route('home.affiliate') }}" 
+                                    <li><a
+                                        href="{{ route('home.affiliate') }}"
                                         >Affiliate Program</a></li>
                                 </ul>
                             </li>
@@ -172,11 +176,11 @@
                                 <a href="#">Resources<span class="submenu-indicator"></span></a>
                                 <ul class="nav-dropdown nav-submenu">
                                     <li
-                                    href="{{ route('home.ourstory') }}" 
+                                    href="{{ route('home.ourstory') }}"
                                     ><a >Our Story</a></li>
                                     <li><a  href="{{ route('home.blog') }}" >Blog</a></li>
-                                    <li><a 
-                                        href="{{ route('home.help_center') }}" 
+                                    <li><a
+                                        href="{{ route('home.help_center') }}"
                                         >Help Center</a></li>
                                     <li>
                                         <a href="#">Governance</a>
@@ -201,10 +205,10 @@
                                     <li>
                                         <a href="#">Governance</a>
                                         <ul class="nav-dropdown nav-submenu">
-                                            <li><a 
-                                                href="{{ route('home.terms') }}" 
+                                            <li><a
+                                                href="{{ route('home.terms') }}"
                                                 >Terms And Conditions</a></li>
-                                            <li><a 
+                                            <li><a
                                                 href="{{ route('home.privacy') }}" >Privacy Policy</a></li>
                                             <li><a  href="{{ route('home.refund') }}" >Return & Refund Policy</a></li>
                                             <li><a  href="{{ route('home.cookie') }}" >Cookie Policy</a></li>

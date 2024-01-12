@@ -15,7 +15,7 @@ use Illuminate\Validation\Rule;
 class HomeController extends Controller
 {
     public function index(){
-      
+
         $blogposts = Blogpost::all();
         return view('main.home', compact('blogposts'));
     }
