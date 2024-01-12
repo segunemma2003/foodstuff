@@ -30,8 +30,8 @@
                             {{-- <li class="breadcrumb-item active theme-cl" aria-current="page">
                                 {{ $corePageName }}
                             </li> --}}
-                          
-                            
+
+
                         </ol>
                     </nav>
                 </div>
@@ -79,7 +79,7 @@
                         Created an account? Great! Now copy your affiliate link from the profile screen and start sharing.
                         You can always return here any time to monitor your earnings.
                     </p> --}}
-                    
+
                     <p>
                         But first, you need to get an affiliate ID. To get one
                         <a asp-area="" asp-controller="Home" asp-action="OurApp" style="color:#E10C2C;">Download The FoodStuff Store App</a>.
