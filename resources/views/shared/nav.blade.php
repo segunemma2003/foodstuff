@@ -1,5 +1,5 @@
 <div class="header header-transparent dark-text">
-    <div class="container">
+    <div class="container-fluid">
         <nav id="navigation" class="navigation navigation-landscape">
             <div class="nav-header">
                 <a class="nav-brand" href="/">
