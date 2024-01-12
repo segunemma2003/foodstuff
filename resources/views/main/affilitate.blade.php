@@ -12,14 +12,23 @@
                     <h1 class="breadcrumb-title">Become An Affiliate</h1>
                     <nav class="transparent">
                         <ol class="breadcrumb p-0">
-                            <li class="breadcrumb-item">
+                            {{-- <li class="breadcrumb-item">
                                 <a asp-area="" asp-controller="Home" asp-action="@ViewBag.prevPageLink">
                                     @ViewBag.prevPageName
                                 </a>
                             </li>
                             <li class="breadcrumb-item active theme-cl" aria-current="page">
                                 @ViewBag.corePageName
+                            </li> --}}
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('home', ['page' => $prevPageLink]) }}">
+                                    {{ $prevPageName }}
+                                </a>
                             </li>
+                            <li class="breadcrumb-item active theme-cl" aria-current="page">
+                                {{ $corePageName }}
+                            </li>
+                            
                         </ol>
                     </nav>
                 </div>
@@ -32,22 +41,22 @@
 <!-- ============================ Page Title End ================================== -->
 <section class="pt-0">
     <div class="container">
-        @if (TempData["SuccessMessage"] != null)
-        {
+        @if (session('successMessage'))
             <div class="form-group">
                 <div class="alert alert-success">
-                    ✔ @TempData["SuccessMessage"]
+                    ✔ {{ session('successMessage') }}
                 </div>
             </div>
-        }
-        @if (TempData["ErrorMessage"] != null)
-        {
+        @endif
+
+        @if (session('errorMessage'))
             <div class="form-group">
                 <div class="alert alert-warning">
-                    ⚠ @TempData["ErrorMessage"]
+                    ⚠ {{ session('errorMessage') }}
                 </div>
             </div>
-        }
+        @endif
+
         <div class="row align-items-center justify-content-between mt-5">
             <div class="col-xl-4 col-lg-5 col-md-6 col-sm-12">
                 <div class="lmp_thumb">
@@ -61,6 +70,13 @@
                         Use your unique link to refer new customers to FoodStuff Store.
                         You earn a one-time 20% commission on any new transaction that's tied to your referral link.
                     </p>
+                    {{-- <p>
+                        But first, you need to get an affiliate ID. To get one
+                        <a href="{{ route('our-app') }}" style="color:#E10C2C;">Download The FoodStuff Store App</a>.
+                        Created an account? Great! Now copy your affiliate link from the profile screen and start sharing.
+                        You can always return here any time to monitor your earnings.
+                    </p> --}}
+                    
                     <p>
                         But first, you need to get an affiliate ID. To get one
                         <a asp-area="" asp-controller="Home" asp-action="OurApp" style="color:#E10C2C;">Download The FoodStuff Store App</a>.
