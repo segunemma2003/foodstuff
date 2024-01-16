@@ -1,19 +1,17 @@
-﻿@{
-    ViewData["Title"] = ViewBag.corePageName;
-}
+﻿
 <div class="clearfix"></div>
 <!-- ============================ Login Wrap ================================== -->
 <section>
     <div class="container">
         <div class="row justify-content-center">
-
+           
             <div class="col-xl-7 col-lg-8 col-md-12 col-sm-12">
-                @using (Html.BeginForm("RegularSignUpUser", "Home", FormMethod.Post))
-                {
-                    <form>
+               
+                    <form method="POST" action="/createUser">
+                        @csrf
                         <div class="crs_log_wrap">
                             <br />
-                            @if (TempData["SuccessMessage"] != null)
+                            {{-- @if (TempData["SuccessMessage"] != null)
                             {
                                 <div class="form-group">
                                     <div class="alert alert-success">
@@ -21,14 +19,40 @@
                                     </div>
                                 </div>
                             }
-                            @if (TempData["ErrorMessage"] != null)
-                            {
-                                <div class="form-group">
-                                    <div class="alert alert-warning">
-                                        ⚠ @TempData["ErrorMessage"]
-                                    </div>
+
+                           --}}
+                           {{-- error section starts --}}
+                            @error("Email")
+                            <div class="form-group">
+                                <div class="alert alert-warning">
+                                    ⚠ {{$message}}
                                 </div>
-                            }
+                            </div>
+                            @enderror
+                            @error("Fullname")
+                            <div class="form-group">
+                                <div class="alert alert-warning">
+                                    ⚠ {{$message}}
+                                </div>
+                            </div>
+                            @enderror
+
+                            @error("Password")
+                            <div class="form-group">
+                                <div class="alert alert-warning">
+                                    ⚠ {{$message}}
+                                </div>
+                            </div>
+                            @enderror
+
+                            @error("PhoneNumber")
+                            <div class="form-group">
+                                <div class="alert alert-warning">
+                                    ⚠ {{$message}}
+                                </div>
+                            </div>
+                            @enderror
+                           {{-- error section ends --}}
                             <div class="crs_log__thumb">
                                 <img src="~/assets/img/SignUpBG.png" class="img-fluid" alt="" />
                             </div>
@@ -36,78 +60,71 @@
                                 <div class="rcs_log_123">
                                     <div class="rcs_ico"><i class="fas fa-lock"></i></div>
                                 </div>
-                                @{
-                                    if (@TempData["EmailText"] != null)
-                                    {
+                             
                                         <div class="rcs_log_124">
                                             <div class="Lpo09"><h4>Sign Up To Get Started</h4></div>
                                             <div class="form-group">
                                                 <label>Email</label>
 
-                                                <input type="email" name="Email" class="form-control" value="@TempData["EmailText"]" placeholder="Enter your email address" required />
+                                                <input type="email" name="Email" class="form-control"  placeholder="Enter your email address" required />
                                             </div>
                                             <div class="form-group">
                                                 <label>Password</label>
-                                                <input type="password" name="Password" value="@TempData["PasswordText"]" class="form-control" placeholder="*******" required />
+                                                <input type="password" name="Password" class="form-control" placeholder="*******" required />
                                             </div>
                                             <div class="form-group">
                                                 <label>Confirm Password</label>
-                                                <input type="password" name="ConfirmPassword" value="@TempData["ConfirmPasswordText"]" class="form-control" placeholder="*******" required />
+                                                <input type="password" name="ConfirmPassword" class="form-control" placeholder="*******" required />
                                             </div>
                                             <div class="form-group">
                                                 <label>Full Name</label>
-                                                <input type="text" name="Fullname" value="@TempData["UsernameText"]" class="form-control" placeholder="*******" required />
+                                                <input type="text" name="Fullname" class="form-control" placeholder="*******" required />
                                             </div>
                                             <div class="form-group">
                                                 <label>Phone Number</label>
-                                                <input type="number" name="PhoneNumber" value="@TempData["PhoneText"]" class="form-control" placeholder="Enter your phone number" required/>
+                                                <input type="number" name="PhoneNumber"  class="form-control" placeholder="Enter your phone number" required/>
                                             </div>
                                             <div class="form-group">
                                                 <label>Referral Code (Optional)</label>
-                                                <input type="text" name="RefCode" value="@TempData["RefText"]" class="form-control" placeholder="Enter a referral code" />
+                                                <input type="text" name="RefCode" class="form-control" placeholder="Enter a referral code" />
                                             </div>
                                             <div class="form-group">
                                                 <button type="submit" class="btn full-width btn-md theme-bg text-white">Sign Up</button>
                                             </div>
                                         </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="rcs_log_124">
+                                <div class="rcs_log_124">
                                             <div class="Lpo09"><h4>Sign Up To Get Started</h4></div>
                                             <div class="form-group">
                                                 <label>Email</label>
-
-                                                <input type="email" name="Email" class="form-control" value="@TempData["EmailText"]" placeholder="Enter your email address" required />
+                                                <input type="email" name="Email" class="form-control" placeholder="Enter your email address" required />
                                             </div>
                                             <div class="form-group">
                                                 <label>Password</label>
-                                                <input type="password" name="Password" value="@TempData["PasswordText"]" class="form-control" placeholder="*******" required />
+                                                <input type="password" name="Password" class="form-control" placeholder="*******" required />
                                             </div>
                                             <div class="form-group">
                                                 <label>Confirm Password</label>
-                                                <input type="password" name="ConfirmPassword" value="@TempData["ConfirmPasswordText"]" class="form-control" placeholder="*******" required />
+                                                <input type="password" name="ConfirmPassword" class="form-control" placeholder="*******" required />
                                             </div>
                                             <div class="form-group">
                                                 <label>Full Name</label>
-                                                <input type="text" name="Fullname" value="@TempData["UsernameText"]" class="form-control" placeholder="*******" required />
+                                                <input type="text" name="Fullname" class="form-control" placeholder="*******" required />
                                             </div>
                                             <div class="form-group">
                                                 <label>Phone Number</label>
-                                                <input type="number" name="PhoneNumber" value="@TempData["PhoneText"]" class="form-control" placeholder="Enter your phone number" required/>
+                                                <input type="number" name="PhoneNumber" class="form-control" placeholder="Enter your phone number" required/>
                                             </div>
                                             <div class="form-group">
                                                 <label>Referral Code (Optional)</label>
-                                                <input type="text" name="RefCode" value="@TempData["RefText"]" class="form-control" placeholder="Enter a referral code" />
+                                                <input type="text" name="RefCode" class="form-control" placeholder="Enter a referral code" />
                                             </div>
                                             <div class="form-group">
                                                 <button type="submit" class="btn full-width btn-md theme-bg text-white">Sign Up</button>
                                             </div>
                                         </div>
-                                    }
-                                }
+                                    
 
-                            <div class="fhg_45"><p class="musrt">Or do you own a google account?</p></div>
+                           
                                 <div id="g_id_onload"
                                      data-client_id="193554266046-ebjgoql9ju8pqsnjvspe4iden8bivufk.apps.googleusercontent.com"
                                      data-login_uri="https://localhost:5001/Home/Welcome"
@@ -132,8 +149,7 @@
                             </div>
                         </div>
                     </form>
-                    @Html.AntiForgeryToken();
-                }
+               
             </div>
 
         </div>

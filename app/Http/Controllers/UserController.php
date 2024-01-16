@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\Models\User;
-use illuminate\Http\Request;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -39,13 +43,79 @@ class UserController extends Controller
 
     }
 
-    public function store(UserRequest $request)
+    public function store(Request $request)
     {
-        $user = User::create($request->all());
 
-        return response(['data' => $user ], 201);
+        try{
+        
+              $userData= $request->validate([
+                'UserEmail'=>["required","string","max:30","email", Rule::unique("users", "UserEmail")],
+                'Username'=>["required","string","max:30"],
+                'Phone'=>["required"],
+                "Passphrase"=>["required","min:5","confirmed"],
+                "Passphrase_confirmation"=>["required"],
+            ]);
+           
+              if($userData){
+                $user = DB::table('users')->where('UserEmail', $userData["UserEmail"])->first();
+                
+               if($user){
+               return  response()->json([
+                    "message"=>"User Already Created",
+                ], 404);
+               }else{
+                $user = new User();
+                $createdUser  = $user->saveUser($userData);
+              
+                return  response()->json([
+                    "message"=>"User created successfully",
+                    "user"=>$createdUser
+                ], 201);
+               }
+            
+              }
+        }catch(Exception $e){
+          return response()->json([
+                "error"=>$e->getMessage() 
+          ], 404);
+        }
 
     }
+
+   
+// login user
+
+
+public function login(Request $request)
+{
+    try {
+        $userData = $request->validate([
+            'UserEmail/Phone' => ["required", "string"],
+            'Passphrase' => ["required"],
+        ]);
+
+        if ($userData) {
+            $user = DB::table('users')
+                ->where('UserEmail', $userData["UserEmail/Phone"])
+                ->orWhere("Phone", $userData["UserEmail/Phone"])
+                ->first();
+
+            if ($user && Hash::check($userData['Passphrase'], $user->Passphrase)) {
+                return response()->json([
+                    "message" => "User logged in successfully",
+                ], 200);
+            } else {
+                return response()->json([
+                    "message" => "Invalid login credentials",
+                ], 401);
+            }
+        }
+    } catch (\Exception $e) {
+        return response()->json([
+            "error" => $e->getMessage(),
+        ], 500);
+    }
+}
 
     public function show($id)
     {
@@ -68,4 +138,6 @@ class UserController extends Controller
 
         return response(['data' => null ], 204);
     }
+
+   
 }

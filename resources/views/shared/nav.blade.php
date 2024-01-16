@@ -52,7 +52,7 @@
                                         <a asp-action="Cart" class="crs_yuo12">
                                             <span class="embos_45">
                                                 <i class="fas fa-shopping-basket"></i><i class="embose_count">
-                                                    <input id="cartItemCount" type="number" style="width:18px; text-align:center; height:20px; background-color:transparent; border:none; color:white;" value="@ViewBag.cartItemCount" disabled />
+                                                    <input id="cartItemCount" type="number" style="width:18px; text-align:center; height:20px; background-color:transparent; border:none; color:white;"  disabled />
                                                 </i>
                                             </span>
                                         </a>
@@ -336,7 +336,7 @@
                             <div class="col-xl-9 col-lg-9 col-md-6 col-sm-11">
                                 <div class="form-group">
                                     <div class="smalls input-with-icon">
-                                        <input spellcheck="true" autocomplete="on" type="text" name="SearchKeyword" max="100" value="@ViewBag.SearchKeyWord" maxlength="100" placeholder="Name of the food stuff..." class="form-control" style="height:54px" required>
+                                        <input spellcheck="true" autocomplete="on" type="text" name="SearchKeyword" max="100" maxlength="100" placeholder="Name of the food stuff..." class="form-control" style="height:54px" required>
                                         <i class="ti-search"></i>
                                     </div>
                                 </div>

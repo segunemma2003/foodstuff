@@ -74,20 +74,21 @@ class User extends  Authenticatable
 
     public function saveUser($request) : self
     {
-        $this->UserEmail = $request->UserEmail;
-        $this->AccountType = $request->AccountType;
-        $this->Passphrase = Hash::make($request->Passphrase);
+       
+        $this->UserEmail = $request["UserEmail"];
+        $this->AccountType = $request->AccountType ?? "Regular";
+        $this->Passphrase = Hash::make($request["Passphrase"]);
         $this->Image = $request->Image ?? "Default";
-        $this->Phone = $request->Phone;
-        $this->Username = $request->Username;
-        $this->TempPin = $request->TempPin;
+        $this->Phone = $request["Phone"];
+        $this->Username = $request["Username"];
+        $this->TempPin = Str::random(10);
         $this->Status = "active";
         $this->Credit = $request->Credit?? "0.00";
         $this->AffiliateID = $request->AffiliateID ?? Str::random(10);
         $this->EmailVerified = true;
         $this->PhoneVerified = true;
         $this->CartTotal = $request->CartTotal ?? "0";
-        $this->UUID = uniqid();
+        $this->UUID = Str::random(10);
         $this->save();
 
         return $this;

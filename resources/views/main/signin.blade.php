@@ -8,8 +8,9 @@
         <div class="row justify-content-center">
             <div class="col-xl-7 col-lg-8 col-md-12 col-sm-12">
                 {{-- <form method="POST" action="{{ route('home.SignInUser') }}"> --}}
-                <form method="POST" action="">
+                <form method="POST" action="/login">
                     @csrf
+                   
                     <div class="crs_log_wrap">
                         <br />
                         @if (Session::has('SuccessMessage'))
@@ -34,14 +35,14 @@
                                 <div class="rcs_ico"><i class="fas fa-lock"></i></div>
                             </div>
                             <div class="rcs_log_124">
-                                <div class="Lpo09"><h4>Sign In Your Account</h4></div>
+                                <div class="Lpo09"><h4>Sign In Your Account ggg</h4></div>
                                 <div class="form-group">
-                                    <label>Email/Phone Number</label>
-                                    <input type="text" name="Email" class="form-control" value="{{ Session::get('EmailText') }}" placeholder="Enter your email address or phone number" required />
+                                    <label>Email/Phone</label>
+                                    <input type="text" name="UserEmail/Phone" class="form-control" value="{{ Session::get('EmailText') }}" placeholder="Enter your email address or phone number" required />
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input type="password" name="Password" class="form-control" placeholder="*******" id="passwordInput" required />
+                                    <input type="password" name="Passphrase" class="form-control" placeholder="*******" id="passwordInput" required />
                                     <input type="password" name="AccountType" value="Regular" class="form-control" placeholder="*******" required hidden />
                                     <!-- An element to toggle between password visibility -->
                                     <input type="checkbox" style="margin-top: 20px; margin-bottom: 20px; margin-right: 5px;" class="btn-primary" onclick="toggleShowPassword()"> Show Password

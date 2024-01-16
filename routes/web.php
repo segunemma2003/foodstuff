@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Main\HomeController;
 use App\Http\Controllers\Main\AdminController;
+use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +22,8 @@ use App\Http\Controllers\Main\AdminController;
 
 
 Route::get('/', [HomeController::class, 'index']);
+Route::post('/createuser', [UserController::class, 'store']);
+Route::post('/login', [UserController::class, 'login']);
 // Route::get('/home/store', [HomeController::class, 'store'])->name('home.store');
 // Route::get('/home/activities', [])
 Route::auto('/home', HomeController::class);

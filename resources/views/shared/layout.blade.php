@@ -44,13 +44,13 @@
                     </div>
                     <div class="modal-body">
                         <div class="login-form">
-                            <form method="POST" ">
+                            <form method="POST" action="/login">
                                 @csrf <!-- Laravel CSRF protection -->
 
                                 <div class="form-group">
                                     <label>Email/Phone Number</label>
                                     <div class="input-with-icon">
-                                        <input type="text" class="form-control" name="Email" placeholder="Enter your email or phone number" required />
+                                        <input type="text" class="form-control" name="UserEmail/Phone" placeholder="Enter your email or phone number" required />
                                         <i class="ti-user"></i>
                                     </div>
                                 </div>
@@ -58,7 +58,7 @@
                                 <div class="form-group">
                                     <label>Password</label>
                                     <div class="input-with-icon">
-                                        <input type="password" class="form-control" name="Password" id="passwordInput" placeholder="*******" required />
+                                        <input type="password" class="form-control" name="Passphrase" id="passwordInput" placeholder="*******" required />
                                         <i class="ti-unlock"></i>
                                     </div>
                                     <!-- An element to toggle between password visibility -->

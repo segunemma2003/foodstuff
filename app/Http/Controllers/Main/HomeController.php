@@ -8,7 +8,9 @@ use App\Models\Blogpost;
 use App\Models\Foodstuff as FoodStuff;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Models\User;
+use Illuminate\Http\Client\Request as ClientRequest;
+use Illuminate\Validation\Rule;
 
 class HomeController extends Controller
 {
@@ -24,7 +26,7 @@ class HomeController extends Controller
         $totalRelatedFoodStuffItems = '';
         $foodStuffListItemsLength = '';
 
-        // dd($foodstuffs);'
+      
         return view('main.store', compact('foodStuffs', 'pageItemRangeDisplay', 'totalRelatedFoodStuffItems', 'foodStuffListItemsLength'));
     }
 
@@ -131,6 +133,11 @@ class HomeController extends Controller
     public function signup(){
         return view('main.signup');
     }
+
+    // create user
+
+  
+
 
     public function statistics(){
         return view('main.statistics');

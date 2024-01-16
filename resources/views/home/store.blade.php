@@ -1,9 +1,7 @@
 ﻿@using foodstuffstore.Functions;
 @model dynamic
 
-@{
-    ViewData["Title"] = ViewBag.corePageName;
-}
+
 <br />
 
 <!-- ============================ Store Items ================================== -->
@@ -192,20 +190,16 @@
                                                             <button type="button" class="close sl_btn" data-dismiss="modal">Close</button>
                                                         </li>
                                                         <li class="col-xl-6 col-lg-6 col-md-6 col-6">
-                                                            @{
-                                                                if (ViewBag.uuid != "")
-                                                                {
+                                                          
                                                                     <button type="button" onclick="SubmitCartForm('@Data.ProductID')" class="btn btn-md full-width theme-bg text-white">
                                                                         <i class="fas fa-shopping-basket"></i>
                                                                     </button>
-                                                                }
-                                                                else
-                                                                {
+                                                              
                                                                     <a asp-area="" asp-controller="Home" asp-action="SignIn" class="btn btn-md full-width theme-bg text-white" style="text-align:center;">
                                                                         <i class="fas fa-shopping-basket"></i>
                                                                     </a>
-                                                                }
-                                                            }
+                                                                
+                                                            
                                                         </li>
                                                     </ul>
                                                 </div>
