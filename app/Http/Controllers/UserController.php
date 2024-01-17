@@ -14,7 +14,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        
+
         $users = User::get();
 
         return response(['data' => $users ], 200);
@@ -47,7 +47,7 @@ class UserController extends Controller
     {
 
         try{
-        
+
               $userData= $request->validate([
                 'UserEmail'=>["required","string","max:30","email", Rule::unique("users", "UserEmail")],
                 'Username'=>["required","string","max:30"],
@@ -55,10 +55,10 @@ class UserController extends Controller
                 "Passphrase"=>["required","min:5","confirmed"],
                 "Passphrase_confirmation"=>["required"],
             ]);
-           
+
               if($userData){
                 $user = DB::table('users')->where('UserEmail', $userData["UserEmail"])->first();
-                
+
                if($user){
                return  response()->json([
                     "message"=>"User Already Created",
@@ -66,23 +66,23 @@ class UserController extends Controller
                }else{
                 $user = new User();
                 $createdUser  = $user->saveUser($userData);
-              
+
                 return  response()->json([
                     "message"=>"User created successfully",
                     "user"=>$createdUser
                 ], 201);
                }
-            
+
               }
         }catch(Exception $e){
           return response()->json([
-                "error"=>$e->getMessage() 
+                "error"=>$e->getMessage()
           ], 404);
         }
 
     }
 
-   
+
 // login user
 
 
@@ -101,19 +101,14 @@ public function login(Request $request)
                 ->first();
 
             if ($user && Hash::check($userData['Passphrase'], $user->Passphrase)) {
-                return response()->json([
-                    "message" => "User logged in successfully",
-                ], 200);
+                Auth::login($user);
+                return redirect()->back();
             } else {
-                return response()->json([
-                    "message" => "Invalid login credentials",
-                ], 401);
+                return redirect()->back();
             }
         }
     } catch (\Exception $e) {
-        return response()->json([
-            "error" => $e->getMessage(),
-        ], 500);
+        return redirect()->back();
     }
 }
 
@@ -139,5 +134,5 @@ public function login(Request $request)
         return response(['data' => null ], 204);
     }
 
-   
+
 }
