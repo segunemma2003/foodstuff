@@ -56,4 +56,18 @@ class Foodstuff extends Model
 		'Tags',
 		'AddDate'
 	];
+
+	public function scopeFilter($query, array $filter){
+		if($filter["keyboard"] ?? false){
+		 $query->where("Name", "like", '%' . request("keyboard") . '%');
+		}
+	   
+		if($filter["search"] ?? false){
+		 $query->where("Category", "like", '%' . request("Category") . '%');
+		}
+		  }
+	
 }
+
+
+

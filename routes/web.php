@@ -26,5 +26,6 @@ Route::post('/createuser', [UserController::class, 'store']);
 Route::post('/login', [UserController::class, 'login']);
 // Route::get('/home/store', [HomeController::class, 'store'])->name('home.store');
 // Route::get('/home/activities', [])
+Route::post('/SearchFoodStuff', [HomeController::class, "searchfoodstuff"]);
 Route::auto('/home', HomeController::class);
 Route::auto('/admin', AdminController::class);

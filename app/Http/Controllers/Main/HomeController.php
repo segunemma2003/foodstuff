@@ -100,7 +100,14 @@ class HomeController extends Controller
     public function managerestaurants(){
         return view('main.manage_restaurants');
     }
+    public function searchfoodstuff(Request $request){
 
+        $foodStuffs =  FoodStuff::latest()->filter($request(["category", "keyboard"]))->get()::paginate(50);
+        $pageItemRangeDisplay = '';
+        $totalRelatedFoodStuffItems = '';
+        $foodStuffListItemsLength = '';
+        return view('main.store', compact('foodStuffs', 'pageItemRangeDisplay', 'totalRelatedFoodStuffItems', 'foodStuffListItemsLength'));
+    }
     public function restaurant(){
         return view('main.open_restaurant');
     }
