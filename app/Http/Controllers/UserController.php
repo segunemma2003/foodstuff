@@ -67,10 +67,7 @@ class UserController extends Controller
                 $user = new User();
                 $createdUser  = $user->saveUser($userData);
 
-                return  response()->json([
-                    "message"=>"User created successfully",
-                    "user"=>$createdUser
-                ], 201);
+                return  redirect("/");
                }
 
               }
