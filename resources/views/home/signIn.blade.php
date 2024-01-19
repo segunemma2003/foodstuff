@@ -41,7 +41,7 @@
                                 </div>
 
                                 <div class="rcs_log_124">
-                                    <div class="Lpo09"><h4>Sign In Your Account nowwww</h4></div>
+                                    <div class="Lpo09"><h4>Sign In Your Account</h4></div>
                                     <div class="form-group">
                                        
                                         <label>Email/Phone Number</label>

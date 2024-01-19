@@ -292,7 +292,7 @@
                                     <a asp-action="Cart" class="crs_yuo12">
                                         <span class="embos_45">
                                             <i class="fas fa-shopping-basket"></i><i id="cartCount" class="embose_count">
-                                                <input id="cartItemCount" disabled type="text" style="width: 18px; height: 20px; text-align: center; background-color: transparent; border: none; color: white;" value="@ViewBag.cartItemCount" />
+                                                <input id="cartItemCount" disabled type="text" style="width: 18px; height: 20px; text-align: center; background-color: transparent; border: none; color: white;" />
                                             </i>
                                         </span>
                                     </a>
@@ -311,9 +311,12 @@
                             </li>
                        @else
                             <li>
-                                <a href="#" class="alio_green" data-toggle="modal" data-target="#login">
+                                <a href="/home/signin" class="alio_green">
                                     <i class="fas fa-sign-in-alt mr-1"></i><span class="dn-lg">Sign In</span>
                                 </a>
+                                {{-- <a href="/home/signin" class="alio_green" data-toggle="modal" data-target="#login">
+                                    <i class="fas fa-sign-in-alt mr-1"></i><span class="dn-lg">Sign In now now</span>
+                                </a> --}}
                             </li>
                     @endauth
                     <li class="add-listing theme-bg">

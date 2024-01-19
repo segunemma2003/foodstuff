@@ -98,8 +98,8 @@ public function login(Request $request)
                 ->first();
 
             if ($user && Hash::check($userData['Passphrase'], $user->Passphrase)) {
-                Auth::login($user);
-                return redirect()->back();
+                auth()->attempt(["UserEmail/Phone" => $userData["UserEmail/Phone"]]);
+                return redirect("/");
             } else {
                 return redirect()->back();
             }

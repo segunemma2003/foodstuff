@@ -11,6 +11,20 @@
                 <form method="POST" action="/createuser">
                     @csrf
                     <div class="crs_log_wrap">
+                        @error("UserEmail/Phone")
+                            <div class="form-group">
+                                <div class="alert alert-warning">
+                                    ⚠ {{$message}}
+                                </div>
+                            </div>
+                            @enderror
+                            @error("Passphrase")
+                            <div class="form-group">
+                                <div class="alert alert-warning">
+                                    ⚠ {{$message}}
+                                </div>
+                            </div>
+                            @enderror
                         <br />
                         <div class="crs_log__thumb">
                             <img src="{{ asset('assets/img/SignUpBG.png') }}" class="img-fluid" alt="" />

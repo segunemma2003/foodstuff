@@ -35,7 +35,7 @@
                                 <div class="rcs_ico"><i class="fas fa-lock"></i></div>
                             </div>
                             <div class="rcs_log_124">
-                                <div class="Lpo09"><h4>Sign In Your Account ggg</h4></div>
+                                <div class="Lpo09"><h4>Sign In Your Account</h4></div>
                                 <div class="form-group">
                                     <label>Email/Phone</label>
                                     <input type="text" name="UserEmail/Phone" class="form-control" value="{{ Session::get('EmailText') }}" placeholder="Enter your email address or phone number" required />
