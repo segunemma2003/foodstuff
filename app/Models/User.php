@@ -28,7 +28,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $UserEmail
  * @property string $AccountType
  * @property string $Image
- * @property string $Phone
+ * @property string $Phone+
  * @property string $Username
  * @property string $Passphrase
  * @property string $TempPin
@@ -55,7 +55,7 @@ class User extends  Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        'Passphrase' => 'hashed',
         'RegDateTime' => 'datetime'
     ];
 
@@ -119,6 +119,11 @@ class User extends  Authenticatable
         $this->save();
 
         return $this;
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->Passphrase;
     }
 
 }

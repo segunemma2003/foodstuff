@@ -7,7 +7,7 @@
         <div class="row justify-content-center">
             <div class="col-xl-7 col-lg-8 col-md-12 col-sm-12">
                 {{-- <form method="POST" action="{{ route('home.RegularSignUpUser') }}"> --}}
-                <form method="POST" "action="{{ route('register') }}">
+                <form method="POST" action="{{ route('register') }}">
                     @csrf
                     <div class="crs_log_wrap">
                         @error("UserEmail")
@@ -48,7 +48,7 @@
                             </div>
 
                                 <div class="rcs_log_124">
-                                    <div class="Lpo09"><h4>Sign Up To Get Started 99</h4></div>
+                                    <div class="Lpo09"><h4>Sign Up To Get Started 999999</h4></div>
                                     <div class="form-group">
                                         <label>Email</label>
                                         <input type="email" name="UserEmail" class="form-control" value="{{ Session::get('EmailText') }}" placeholder="Enter your email address" required />

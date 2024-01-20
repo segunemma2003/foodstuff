@@ -139,10 +139,10 @@ class HomeController extends Controller
     }
 
     public function signin(){
-        return view('main.signin');
+        return view('auth.login');
     }
     public function signup(){
-        return view('main.signup');
+        return view('auth.register');
     }
 
     // create user

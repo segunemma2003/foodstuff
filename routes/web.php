@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Main\HomeController;
 use App\Http\Controllers\Main\LogicController;
 use App\Http\Controllers\Main\AdminController;
 use App\Http\Controllers\UserController;
-use Cart;
+// use Cart;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,7 +33,8 @@ Auth::routes();
 Route::get('/', [HomeController::class, 'index']);
 Route::post('/createuser', [UserController::class, 'store']);
 Route::get('/add_to_cart/{id}/{quantity}',[LogicController::class, 'addToCart'])->middleware('auth')->name('addToCart');
-Route::post('/login', [UserController::class, 'login']);
+
+
 // Route::get('/home/store', [HomeController::class, 'store'])->name('home.store');
 // Route::get('/home/activities', [])
 Route::post('/SearchFoodStuff', [HomeController::class, "searchfoodstuff"]);
@@ -41,9 +45,7 @@ Route::auto('/admin', AdminController::class);
 Route::get('/logmeout',function(){
     if(!Cart::isEmpty()){
         Cart::session(auth()->user()->ID)->clear();
-
     }
-
     Auth::logout();
     return redirect('/');
 
