@@ -15,7 +15,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        
+
         $users = User::get();
 
         return response(['data' => $users ], 200);
@@ -48,7 +48,7 @@ class UserController extends Controller
     {
 
         try{
-        
+
               $userData= $request->validate([
                 'UserEmail'=>["required","string","max:30","email", Rule::unique("users", "UserEmail")],
                 'Username'=>["required","string","max:30"],
@@ -56,58 +56,61 @@ class UserController extends Controller
                 "Passphrase"=>["required","min:5","confirmed"],
                 "Passphrase_confirmation"=>["required"],
             ]);
-           
+
               if($userData){
-                $user = DB::table('users')->where('UserEmail', $userData["UserEmail"])->first();
-                
-               if($user){
+                $user =User::where('UserEmail', $userData["UserEmail"])->first();
+
+               if(!is_null($user)){
+                Auth::login($user);
+                dd(auth()->user());
                return  redirect("/home/signup")->withErrors(["email"=>"Invalid login credentials"]);
                }else{
                 $user = new User();
                 $createdUser  = $user->saveUser($userData);
-              
+                Auth::login($createdUser);
+                dd(auth()->user());
                 return  redirect("/");
                }
-            
+
               }
-      
+
         }catch(Exception $e){
-           
+
             $errors = $e->validator->errors()->toArray();
-           
+
           return redirect("/home/signup")->withErrors($errors);
         }
 
     }
 
-   
+
 // login user
 
 public function login2(Request $request)
 {
-  
+
     try {
-     
+
         $userData = $request->validate([
             'UserEmail/Phone' => ["required", "string"],
             'Passphrase' => ["required"],
         ]);
-       
 
-      
-        
+
+
+
         if ($userData) {
-          
+
             $user = DB::table('users')
                 ->where('UserEmail', $userData["UserEmail/Phone"])
                 ->orWhere("Phone", $userData["UserEmail/Phone"])
                 ->first();
-              
-            
+
+
             if ($user && Hash::check($userData['Passphrase'], $user->Passphrase)) {
                 dd($user);
               if(auth()->attempt($userData)){
-               
+
                   return redirect('/');
               } else{
                 // dd($user);
@@ -118,14 +121,14 @@ public function login2(Request $request)
                 return redirect()->back()->withErrors(["UserEmail/Phone" => "Inavlid Credentials!"]);
             }
         }
-        
+
     } catch (\Exception $e) {
         return redirect()->back()->withErrors(["UserEmail/Phone" => "invalid user credentials"]);
     }
 }
 
 // $credentials = $request->only('UserEmail/Phone', 'Passphrase');
-       
+
 // dd(Auth::attempt($credentials));
 //  if (Auth::attempt($credentials)) {
 //      // Authentication passed
@@ -207,7 +210,7 @@ public function login88(Request $request)
 
     return redirect("/home/store")->withSuccess('Login details are not valid');
 }
-   
+
 }
 
 

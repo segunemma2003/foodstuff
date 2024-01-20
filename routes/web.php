@@ -21,8 +21,14 @@ use App\Http\Controllers\UserController;
 // });
 
 
-Route::get('/', [HomeController::class, 'index']);
+
+
+Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->middleware('auth');
 Route::post('/createuser', [UserController::class, 'store']);
+Route::get('/add_to_cart/{id}/{quantity}',[UserController::class, 'addToCart'])->middleware('auth')->name('addToCart');
 Route::post('/login', [UserController::class, 'login']);
 // Route::get('/home/store', [HomeController::class, 'store'])->name('home.store');
 // Route::get('/home/activities', [])

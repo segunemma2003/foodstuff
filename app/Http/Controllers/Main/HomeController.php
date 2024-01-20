@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Main;
 
 use App\Models\Cart;
+use Cart as Cartt;
 use App\Models\Activity;
 use App\Models\Blogpost;
 use App\Models\Foodstuff as FoodStuff;
@@ -20,14 +21,42 @@ class HomeController extends Controller
     }
 
     public function store(){
-        $foodStuffs = FoodStuff::paginate(50);
+        $foodStuffs = FoodStuff::cursorPaginate(50);
         $pageItemRangeDisplay = '';
         $totalRelatedFoodStuffItems = '';
         $foodStuffListItemsLength = '';
 
-      
+
         return view('main.store', compact('foodStuffs', 'pageItemRangeDisplay', 'totalRelatedFoodStuffItems', 'foodStuffListItemsLength'));
     }
+
+
+    public function addToCart($id, $quantity){
+        try{
+        $foodStuff = FoodStuff::where('ID',$id)->first();
+        $is_added = checkItem($foodStuff->id);
+if(!$is_added){
+    Cartt::session(auth()->user()->id)->add([
+        'id' => $foodStuff->id, // inique row ID
+'name' => $foodStuff->Name,
+'price' => $foodStuff->Price,
+'quantity' => $quantity
+    ]);
+    return redirect()->back();
+}else{
+    Cartt::update($foodStuff->id,[
+        'quantity' =>  array(
+            'relative' => false,
+            'value' => $quantity
+        )
+    ]);
+}
+
+        }catch(\Exception $e){
+            abort(404);
+        }
+    }
+
 
     public function activities(){
         $activities = Activity::paginate(20);
@@ -142,7 +171,7 @@ class HomeController extends Controller
 
     // create user
 
-  
+
 
 
     public function statistics(){
