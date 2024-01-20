@@ -40,11 +40,7 @@
                                 {  --}}
                                 @if(1===0)
                                     <li>
-<<<<<<< HEAD
                                         <a asp-action="Cart" class="crs_yuo12">
-=======
-                                        <a asp-area="" asp-controller="Home" asp-action="Cart" class="crs_yuo12">
->>>>>>> f6d04ab (changes)
                                             <span class="embos_45"><i class="fas fa-shopping-basket"></i></span>
                                         </a>
                                     </li>
@@ -53,10 +49,11 @@
                                 {  --}}
                                 @else
                                     <li>
-                                        <a asp-action="Cart" class="crs_yuo12">
+                                        <a href={{ route('home.cart') }} class="crs_yuo12">
                                             <span class="embos_45">
                                                 <i class="fas fa-shopping-basket"></i><i class="embose_count">
-                                                    <input id="cartItemCount" type="number" style="width:18px; text-align:center; height:20px; background-color:transparent; border:none; color:white;"  disabled />
+                                                    {{ getTotalCart() }}
+                                                    {{--  <input id="cartItemCount" type="number" style="width:18px; text-align:center; height:20px; background-color:transparent; border:none; color:white;"  disabled />  --}}
                                                 </i>
                                             </span>
                                         </a>
@@ -289,10 +286,10 @@
                                 </li>
                            @else
                                 <li>
-                                    <a asp-action="Cart" class="crs_yuo12">
+                                    <a href="{{ route('home.cart') }}" class="crs_yuo12">
                                         <span class="embos_45">
                                             <i class="fas fa-shopping-basket"></i><i id="cartCount" class="embose_count">
-                                                <input id="cartItemCount" disabled type="text" style="width: 18px; height: 20px; text-align: center; background-color: transparent; border: none; color: white;" />
+                                               {{ getTotalCart() }}
                                             </i>
                                         </span>
                                     </a>

@@ -68,7 +68,7 @@ class UserController extends Controller
                 $user = new User();
                 $createdUser  = $user->saveUser($userData);
                 Auth::login($createdUser);
-                dd(auth()->user());
+
                 return  redirect("/");
                }
 

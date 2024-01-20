@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Main\HomeController;
+use App\Http\Controllers\Main\LogicController;
 use App\Http\Controllers\Main\AdminController;
 use App\Http\Controllers\UserController;
-
+use Cart;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,12 +27,24 @@ use App\Http\Controllers\UserController;
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/', [HomeController::class, 'index'])->middleware('auth');
+Route::get('/', [HomeController::class, 'index']);
 Route::post('/createuser', [UserController::class, 'store']);
-Route::get('/add_to_cart/{id}/{quantity}',[UserController::class, 'addToCart'])->middleware('auth')->name('addToCart');
+Route::get('/add_to_cart/{id}/{quantity}',[LogicController::class, 'addToCart'])->middleware('auth')->name('addToCart');
 Route::post('/login', [UserController::class, 'login']);
 // Route::get('/home/store', [HomeController::class, 'store'])->name('home.store');
 // Route::get('/home/activities', [])
 Route::post('/SearchFoodStuff', [HomeController::class, "searchfoodstuff"]);
 Route::auto('/home', HomeController::class);
 Route::auto('/admin', AdminController::class);
+
+
+Route::get('/logmeout',function(){
+    if(!Cart::isEmpty()){
+        Cart::session(auth()->user()->ID)->clear();
+
+    }
+
+    Auth::logout();
+    return redirect('/');
+
+})->name('logmeout');

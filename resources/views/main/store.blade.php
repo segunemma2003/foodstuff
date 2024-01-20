@@ -140,6 +140,7 @@
                              {{-- button section starts --}}
                             <div class="preview_crs_info">
                                 @if(checkItem($data->ID))
+
                                 <a type="button"
                                      class="btn btn-md full-width bg-dark text-white " fdprocessedid ="ffwzg"
                                     >
@@ -147,7 +148,7 @@
                             </a>
                                 @else
                                 {{--  <input name="" value="{{$data->ID}}" hidden />  --}}
-                                    <a type="button" href={{ route('addToCart',['id'=>$data->ID,'quantity'=>1]) }}"
+                                    <a type="button" href="{{ route('addToCart',[$data->ID,1]) }}"
                                     id="cartButtonTexta-{{$data->ID}}" class="btn btn-md full-width theme-bg text-white " fdprocessedid ="ffwzg"
                                     >
                                         <i class="fas fa-shopping-basket"></i>

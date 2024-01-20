@@ -118,7 +118,10 @@
                                     <div class="rcs_log_126 full">
                                         <ul class="social_log_45 row">
                                             <li class="col-xl-6 col-lg-6 col-md-6 col-6"><button type="button" class="close sl_btn" data-dismiss="modal">Cancel</button></li>
-                                            <li class="col-xl-6 col-lg-6 col-md-6 col-6"><button type="submit" class="btn btn-md full-width theme-bg text-white">Yes</button></li>
+                                            <li class="col-xl-6 col-lg-6 col-md-6 col-6">
+                                                <a href="{{ route('logmeout') }}" type="submit" class="btn btn-md full-width theme-bg text-white">Yes</a>
+
+                                            </li>
                                         </ul>
                                     </div>
                                 </form>

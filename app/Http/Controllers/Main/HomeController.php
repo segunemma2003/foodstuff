@@ -31,31 +31,7 @@ class HomeController extends Controller
     }
 
 
-    public function addToCart($id, $quantity){
-        try{
-        $foodStuff = FoodStuff::where('ID',$id)->first();
-        $is_added = checkItem($foodStuff->id);
-if(!$is_added){
-    Cartt::session(auth()->user()->id)->add([
-        'id' => $foodStuff->id, // inique row ID
-'name' => $foodStuff->Name,
-'price' => $foodStuff->Price,
-'quantity' => $quantity
-    ]);
-    return redirect()->back();
-}else{
-    Cartt::update($foodStuff->id,[
-        'quantity' =>  array(
-            'relative' => false,
-            'value' => $quantity
-        )
-    ]);
-}
 
-        }catch(\Exception $e){
-            abort(404);
-        }
-    }
 
 
     public function activities(){
