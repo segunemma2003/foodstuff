@@ -19,6 +19,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
 
+
 /**
  * Class User
  *
@@ -44,15 +45,22 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends  Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, Tokenable;
+  
+    use HasApiTokens, HasFactory, Notifiable;
 
 	protected $table = 'users';
 	protected $primaryKey = 'ID';
 	public $timestamps = false;
 
-	protected $casts = [
-		'RegDateTime' => 'datetime'
-	];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+        'RegDateTime' => 'datetime'
+    ];
+
+
+
 
 	protected $fillable = [
 		'UUID',

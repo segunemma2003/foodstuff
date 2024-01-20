@@ -11,7 +11,7 @@
                 <form method="POST" action="/createuser">
                     @csrf
                     <div class="crs_log_wrap">
-                        @error("UserEmail/Phone")
+                        @error("UserEmail")
                             <div class="form-group">
                                 <div class="alert alert-warning">
                                     ⚠ {{$message}}
@@ -19,6 +19,20 @@
                             </div>
                             @enderror
                             @error("Passphrase")
+                            <div class="form-group">
+                                <div class="alert alert-warning">
+                                    ⚠ {{$message}}
+                                </div>
+                            </div>
+                            @enderror
+                            @error("Username")
+                            <div class="form-group">
+                                <div class="alert alert-warning">
+                                    ⚠ {{$message}}
+                                </div>
+                            </div>
+                            @enderror
+                            @error("Phone")
                             <div class="form-group">
                                 <div class="alert alert-warning">
                                     ⚠ {{$message}}
@@ -35,17 +49,11 @@
                             </div>
                           
                                 <div class="rcs_log_124">
-                                    <div class="Lpo09"><h4>Sign Up To Get Started</h4></div>
+                                    <div class="Lpo09"><h4>Sign Up To Get Started 99</h4></div>
                                     <div class="form-group">
                                         <label>Email</label>
                                         <input type="email" name="UserEmail" class="form-control" value="{{ Session::get('EmailText') }}" placeholder="Enter your email address" required />
-                                        @error("UserEmail")
-                                        <p class="text-red-500 text-xs">
-                                            {{
-                                                $message
-                                            }}
-                                        </p>
-                                        @enderror
+                                       
                                     </div>
                                     <div class="form-group">
                                         <label>Password</label>

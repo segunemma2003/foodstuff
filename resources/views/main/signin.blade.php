@@ -12,6 +12,20 @@
                     @csrf
                    
                     <div class="crs_log_wrap">
+                        @error("UserEmail/Phone")
+                        <div class="form-group">
+                            <div class="alert alert-warning">
+                                ⚠ {{$message}}
+                            </div>
+                        </div>
+                        @enderror
+                        @error("Passphrase")
+                        <div class="form-group">
+                            <div class="alert alert-warning">
+                                ⚠ {{$message}}
+                            </div>
+                        </div>
+                        @enderror
                         <br />
                         @if (Session::has('SuccessMessage'))
                             <div class="form-group">
@@ -35,10 +49,10 @@
                                 <div class="rcs_ico"><i class="fas fa-lock"></i></div>
                             </div>
                             <div class="rcs_log_124">
-                                <div class="Lpo09"><h4>Sign In Your Account</h4></div>
+                                <div class="Lpo09"><h4>Sign In Your Account 9988</h4></div>
                                 <div class="form-group">
                                     <label>Email/Phone</label>
-                                    <input type="text" name="UserEmail/Phone" class="form-control" value="{{ Session::get('EmailText') }}" placeholder="Enter your email address or phone number" required />
+                                    <input type="text" name="UserEmail/Phone" class="form-control"  placeholder="Enter your email address or phone number" required />
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
@@ -72,7 +86,7 @@
                         <div class="crs_log__footer d-flex justify-content-between">
                             <div class="fhg_45"><p class="musrt">Don't have an account? 
                                 {{-- <a href="{{ route('home.SignUp') }}" class="theme-cl"> --}}
-                                <a href="" class="theme-cl">
+                                <a href="/home/signup" class="theme-cl">
                                     Sign Up
                                 </a></p></div>
                             <div class="fhg_45"><p class="musrt">
