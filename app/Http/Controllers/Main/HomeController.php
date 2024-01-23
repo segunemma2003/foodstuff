@@ -6,6 +6,7 @@ use App\Models\Cart;
 use Cart as Cartt;
 use App\Models\Activity;
 use App\Models\Blogpost;
+use App\Models\Appdefault;
 use App\Models\Foodstuff as FoodStuff;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -58,8 +59,9 @@ class HomeController extends Controller
     }
     public function checkout(){
         $cart = Cart::paginate(10);
+        $appDefault = Appdefault::all();
         $cartItemCount = '';
-        return view('main.checkout', compact('cart','cartItemCount'));
+        return view('main.checkout', compact('cart','cartItemCount', 'appDefault'));
     }
     public function contact(){
         return view('main.contact');

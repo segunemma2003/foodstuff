@@ -11,7 +11,7 @@
                     <nav class="transparent">
                         <ol class="breadcrumb p-0">
                             <li class="breadcrumb-item">
-                                <a href="/home">
+                                <a href="/">
                                     {{-- {{ $prevPageName }} --}}
                                 </a>
                             </li>
@@ -56,38 +56,35 @@
 
         <div class="row justify-content-center">
             <div class="table-responsive">
-                @if ($cart != null)
-                    @php
-                        $i = 0;
-                    @endphp
-                    @foreach ($cart as $data)
-                        @php
-                            $i++;
-                        @endphp
-                    @endforeach
 
-                    @if ($i > 0)
+                @if(!isEmptyCart())
+                @php
+                $items =getContent();
+
+
+            @endphp
                         <table class="table table-striped wishlist">
                             <tbody>
-                                @foreach ($cart as $data)
+
+                               @foreach($items as $data)
+
                                     <tr>
                                         <td>
                                             {{-- <form method="POST" action="{{ route('deleteCartItem', $data->ID) }}"> --}}
-                                            <form method="POST" action=" ">
-                                                @csrf
-                                                <button class="remove_cart" type="submit" title="Remove from cart"><i class="ti-close"></i></button>
-                                            </form>
+
+                                                <a class="remove_cart" href="{{ route('removeCart',[$data->id]) }}" title="Remove from cart"><i class="ti-close"></i></a>
+
                                         </td>
-                                        <td><div class="tb_course_thumb"><img src="{{ $data->Image }}" class="img-fluid" alt="" /></div></td>
+                                        <td><div class="tb_course_thumb"><img src="{{ $data->attributes['images'] }}" class="img-fluid" alt="" /></div></td>
                                         <th>
-                                            {{ $data->Name }}
+                                            {{ $data->name }}
                                             <span class="tb_date">
                                                 {{-- @if (ValueHelper::ISADecimal($data->Price) && ValueHelper::ISANumber($data->Quantity))
                                                     @php
                                                         $sum = intval($data->Price) * intval($data->Quantity);
                                                     @endphp --}}
                                                     {{-- <p>Sum: ₦{{ $sum }}</p> --}}
-                                                    <p>Sum: ₦ </p>
+                                                    <p>Sum: ₦{{ $data->getPriceSum() }} </p>
                                                 {{-- @endif --}}
                                             </span>
                                             {{-- <span class="tb_date">
@@ -101,36 +98,25 @@
                                                 }
                                             </span> --}}
                                         </th>
-                                        <td><span class="wish_price theme-cl">₦{{ $data->Price }}</span></td>
-                                        <td><input type="number" id="input_{{ $data->ID }}" style="background-color: transparent; width:75px; border: none;" onkeypress="this.style.width = ((this.value.length + 1) * 18) + 'px';" value="{{ $data->Quantity }}" /></td>
+                                        <td><span class="wish_price theme-cl">₦{{ $data->price }}</span></td>
+                                        <td><input  oninput="reflectData(this,{{ $data->id }})" type="number" id="input_{{ $data->id }}" style="background-color: transparent; width:75px; border: none;" onkeypress="this.style.width = ((this.value.length + 1) * 18) + 'px';" value="{{ $data->quantity }}" /></td>
                                         <td>
                                             <div class="dropdown show">
                                                 <a class="btn btn-action" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <i class="fas fa-ellipsis-h"></i>
                                                 </a>
                                                 <div class="drp-select dropdown-menu">
-                                                    {{-- <form method="POST" action="{{ route('saveQuantity', $data->ID) }}"> --}}
-                                                    <form method="POST" action="">
 
-                                                        @csrf
-                                                        <input type="text" name="Quantity" id="quantityInput_{{ $data->ID }}" hidden />
-                                                        <button onclick="SaveQuantityFunc('{{ $data->id }}')" class="dropdown-item" type="submit">Save Changes</button>
-                                                    </form>
-                                                    {{-- <form method="POST" action="{{ route('addQuantityCartItem', $data->ID) }}"> --}}
-                                                    <form method="POST" action="">
-                                                        @csrf
-                                                        <button class="dropdown-item" type="submit">Add Quantity</button>
-                                                    </form>
+
+                                                        <a id="add_{{ $data->id }}"  class="dropdown-item" type="submit">Add Quantity</a>
+
                                                     {{-- <form method="POST" action="{{ route('removeQuantityCartItem', $data->ID) }}"> --}}
-                                                    <form method="POST" action="">
-                                                        @csrf
-                                                        <button class="dropdown-item" type="submit">Remove Quantity</button>
-                                                    </form>
+
+
+                                                        <a href="{{ route('removeCart',$data->id) }}" class="dropdown-item" type="submit">Remove Quantity</a>
+
                                                     {{-- <form method="POST" action="{{ route('resetQuantityCartItem', $data->ID) }}"> --}}
-                                                    <form method="POST" action="">
-                                                        @csrf
-                                                        <button class="dropdown-item" type="submit">Reset Quantity</button>
-                                                    </form>
+
                                                 </div>
                                             </div>
                                         </td>
@@ -147,44 +133,35 @@
                                     <h4>Your cart is empty! Return to the store and add some food items.</h4>
                                     <br />
                                     {{-- <a href="{{ route('store') }}" class="btn btn-md full-width theme-bg text-white">Return To Store</a> --}}
-                                    <a href="" class="btn btn-md full-width theme-bg text-white">Return To Store</a>
+                                    <a href="{{ route('home.store') }}" class="btn btn-md full-width theme-bg text-white">Return To Store</a>
                                 </div>
                             </div>
                         </div>
                     @endif
-                @else
-                    <div class="row justify-content-center">
-                        <div class="col-lg-6 col-md-10">
-                            <div class="text-center">
-                                <img src="{{ asset('assets/img/EmptyCart.png') }}" style="width:50%;" class="img-fluid" alt="" />
-                                <br /><br />
-                                <h4>Your cart is empty! Return to the store and add some food items.</h4>
-                                <br />
-                                {{-- <a href="{{ route('store') }}" class="btn btn-md full-width theme-bg text-white">Return To Store</a> --}}
-                                <a href="" class="btn btn-md full-width theme-bg text-white">Return To Store</a>
-                            </div>
-                        </div>
-                    </div>
-                @endif
+
             </div>
 
-            @if ($cartItemCount != 0)
+            @if(!isEmptyCart())
+            @php
+            $items =getContent();
+        @endphp
                 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
                     <div class="dash_crs_cat">
                         <div class="dash_crs_cat_caption">
                             <div class="dash_crs_cat_body">
                                 <ul>
                                     <li>
-                                        @if ($cartItemCount > 1)
-                                            <h6>You have {{ $cartItemCount }} items in your cart</h6>
+                                        @if (getTotalCart() > 1)
+                                            <h6>You have {{ getTotalCart() }} items in your cart</h6>
                                         @else
-                                            <h6>You have just {{ $cartItemCount }} item in your cart</h6>
+                                            <h6>You have just {{ getTotalCart() }} item in your cart</h6>
                                         @endif
                                     </li>
-                                    <li><h6>Tax: <span>{{ $shippingCost }}%</span></h6></li>
-                                    <li><h6>Sub Total: <span>₦{{ $cartTotal }}</span></h6></li>
+                                    <li><h6>Tax: <span>5%</span></h6></li>
+                                    <li><h6>Sub Total: <span>₦ {{ getSubTotalPrice() }}</span></h6></li>
                                     <li>
                                         <h6>Total: <span>
+                                            ₦ {{ getTotalPrice() }}
                                             {{-- @php
                                                 $total = doubleval($cartTotal) + (doubleval($cartTotal) * (doubleval($shippingCost) / 100));
                                                 $total2 = ValueHelper::BalanceFormatter('₦', $total);
@@ -207,13 +184,13 @@
                                     </li> --}}
                                     <li>
                                         {{-- <a href="{{ route('checkout') }}" class="btn btn-md full-width theme-bg text-white">Checkout</a> --}}
-                                        <a href="" class="btn btn-md full-width theme-bg text-white">Checkout</a>
+                                        <a href="{{ route('home.checkout') }}" class="btn btn-md full-width theme-bg text-white">Checkout</a>
                                     </li>
                                     <li>
                                         {{-- <form method="POST" action="{{ route('jumpToHome') }}"> --}}
-                                        <form method="POST" action="">
-                                            <button type="submit" style="color: #E10C2C; background-color: transparent; border: none;"><span> ← </span>Continue Shopping</button>
-                                        </form>
+
+                                            <a href="{{ route('home.store') }}" type="button" style="color: #E10C2C; background-color: transparent; border: none;"><span> ← </span>Continue Shopping</a>
+
                                     </li>
                                 </ul>
                             </div>
@@ -226,13 +203,30 @@
 </section>
 <!-- Cart End Section -->
 
-@push('scripts')
+{{--  @push('scripts')  --}}
 <script>
     function SaveQuantityFunc(inputID) {
         document.getElementById('quantityInput_' + inputID).value = document.getElementById("input_" + inputID).value;
     }
+
+    function reflectData(input, id) {
+        // Get the value from the first input
+        var inputData = input.value;
+console.log(inputData)
+        // Update the href of the anchor tag
+        var update = "add_" + id.toString();
+        var updateLink = document.getElementById(update);
+        if (updateLink) {
+            updateLink.href = "{{ route('addToCart', ['id' => ':id', 'quantity' => ':inputData']) }}"
+            .replace(':id', id)
+            .replace(':inputData', inputData);
+        }
+
+
+    }
+
 </script>
-@endpush
+{{--  @endpush  --}}
 
 
 @endsection

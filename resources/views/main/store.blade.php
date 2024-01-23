@@ -139,13 +139,16 @@
                             </div>
                              {{-- button section starts --}}
                             <div class="preview_crs_info">
+                                @auth
                                 @if(checkItem($data->ID))
 
                                 <a type="button"
+                                href="{{ route('removeCart', $data->ID) }}"
                                      class="btn btn-md full-width bg-dark text-white " fdprocessedid ="ffwzg"
                                     >
-                                        Added
+                                        Remove Cart
                             </a>
+
                                 @else
                                 {{--  <input name="" value="{{$data->ID}}" hidden />  --}}
                                     <a type="button" href="{{ route('addToCart',[$data->ID,1]) }}"
@@ -154,6 +157,13 @@
                                         <i class="fas fa-shopping-basket"></i>
                                     </a>
                                     @endif
+                                    @else
+                                    <a type="button" href="{{ route('addToCart',[$data->ID,1]) }}"
+                                        id="cartButtonTexta-{{$data->ID}}" class="btn btn-md full-width theme-bg text-white " fdprocessedid ="ffwzg"
+                                        >
+                                            <i class="fas fa-shopping-basket"></i>
+                                        </a>
+                                    @endauth
                             </div>
                         </div>
                     </div>
