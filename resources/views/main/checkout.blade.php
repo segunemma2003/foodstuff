@@ -1,6 +1,7 @@
 @extends('shared.layout')
 @section('Title', "Checkout")
 @section('content')
+
 <style>
     #paystack-button {
         cursor: pointer;
@@ -30,7 +31,6 @@
         transition: all .1s ease-in;
     }
 </style>
-
 <!-- ============================ Page Title Start================================== -->
 <section class="page-title gray">
     <div class="container">
@@ -43,27 +43,14 @@
                     </h1>
                     <nav class="transparent">
                         <ol class="breadcrumb p-0">
-                            {{-- <li class="breadcrumb-item">
-                                <a asp-area="" asp-controller="Home" asp-action="@ViewBag.prevPageLink">
-                                    @ViewBag.prevPageName
-                                </a>
-                            </li>
-                            <li class="breadcrumb-item active theme-cl" aria-current="page">
-                                @ViewBag.corePageName
-                            </li> --}}
-                            
                             <li class="breadcrumb-item">
-                                {{-- <a href="{{ route('home', ['page' => $prevPageLink]) }}">
-                                    {{ $prevPageName }}
-                                </a> --}}
-                                <a href="#">
+                                <a asp-area="" asp-controller="Home" href="{{ URL('/') }}">
+                                   Home
                                 </a>
                             </li>
                             <li class="breadcrumb-item active theme-cl" aria-current="page">
-                                {{-- {{ $corePageName }} --}}
+                              Checkout
                             </li>
-                            
-
                         </ol>
                     </nav>
                 </div>
@@ -73,36 +60,9 @@
     </div>
 </section>
 <!-- ============================ Page Title End ================================== -->
-
 <!-- ============================ Checkout ================================== -->
-
 <section class="gray-simple">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12">
-                <div class="breadcrumbs-wrap">
-                    <h1 class="breadcrumb-title">Cart</h1>
-                    <nav class="transparent">
-                        <ol class="breadcrumb p-0">
-                            <li class="breadcrumb-item">
-                                {{-- <a href="{{ route('home', ['prevPageLink' => $prevPageLink]) }}"> --}}
-                                <a href="">
-                                    {{-- {{ $prevPageName }} --}}
-                                </a>
-                            </li>
-                            <li class="breadcrumb-item active theme-cl" aria-current="page">
-                                {{-- {{ $corePageName }} --}}
-                            </li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<!-- Cart Section -->
-<section class="pt-0">
     <div class="container">
         <br />
         @if (session('SuccessMessage'))
@@ -119,208 +79,157 @@
                 </div>
             </div>
         @endif
+        <!-- row Start -->
+        <div class="row frm_submit_block">
+            <div class="col-lg-8 col-md-12 col-sm-12">
 
-        <div class="row justify-content-center">
-            <div class="table-responsive">
-                @if ($cart != null)
-                    @php
-                        $i = 0;
-                    @endphp
-                    @foreach ($cart as $data)
-                        @php
-                            $i++;
-                        @endphp
-                    @endforeach
-
-                    @if ($i > 0)
-                        <table class="table table-striped wishlist">
-                            <tbody>
-                                @foreach ($cart as $data)
-                                    <tr>
-                                        <td>
-                                            {{-- <form method="POST" action="{{ route('deleteCartItem', $data->ID) }}"> --}}
-                                            <form method="POST" action="">
-                                                @csrf
-                                                <button class="remove_cart" type="submit" title="Remove from cart"><i class="ti-close"></i></button>
-                                            </form>
-                                        </td>
-                                        <td><div class="tb_course_thumb"><img src="{{ $data->Image }}" class="img-fluid" alt="" /></div></td>
-                                        <th>
-                                            {{ $data->Name }}
-                                            <span class="tb_date">
-                                                {{-- @if (ValueHelper::ISADecimal($data->Price) && ValueHelper::ISANumber($data->Quantity))
-                                                    @php
-                                                        $sum = intval($data->Price) * intval($data->Quantity);
-                                                    @endphp --}}
-                                                    <p>Sum: ₦
-                                                        {{-- {{ $sum }} --}}
-                                                    </p>
-                                                {{-- @endif --}}
-                                            </span>
-                                        </th>
-                                        <td><span class="wish_price theme-cl">₦{{ $data->Price }}</span></td>
-                                        <td><input type="number" id="input_{{ $data->ID }}" style="background-color: transparent; width:75px; border: none;" onkeypress="this.style.width = ((this.value.length + 1) * 18) + 'px';" value="{{ $data->Quantity }}" /></td>
-                                        <td>
-                                            <div class="dropdown show">
-                                                <a class="btn btn-action" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis-h"></i>
-                                                </a>
-                                                <div class="drp-select dropdown-menu">
-                                                    {{-- <form method="POST" action="{{ route('saveQuantity', $data->ID) }}"> --}}
-                                                    <form method="POST" action="">
-                                                        @csrf
-                                                        <input type="text" name="Quantity" id="quantityInput_{{ $data->ID }}" hidden />
-                                                        <button onclick="SaveQuantityFunc('{{ $data->ID }}')" class="dropdown-item" type="submit">Save Changes</button>
-                                                    </form>
-                                                    {{-- <form method="POST" action="{{ route('addQuantityCartItem', $data->ID) }}"> --}}
-                                                    <form method="POST" action="">
-                                                        @csrf
-                                                        <button class="dropdown-item" type="submit">Add Quantity</button>
-                                                    </form>
-                                                    {{-- <form method="POST" action="{{ route('removeQuantityCartItem', $data->ID) }}"> --}}
-                                                    <form method="POST" action="">
-                                                        @csrf
-                                                        <button class="dropdown-item" type="submit">Remove Quantity</button>
-                                                    </form>
-                                                    {{-- <form method="POST" action="{{ route('resetQuantityCartItem', $data->ID) }}"> --}}
-
-                                                    <form method="POST" action="">
-                                                        @csrf
-                                                        <button class="dropdown-item" type="submit">Reset Quantity</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    @else
-                        <div class="row justify-content-center">
-                            <div class="col-lg-6 col-md-10">
-                                <div class="text-center">
-                                    <img src="{{ asset('assets/img/EmptyCart.png') }}" style="width:50%;" class="img-fluid" alt="" />
-                                    <br /><br />
-                                    <h4>Your cart is empty! Return to the store and add some food items.</h4>
-                                    <br />
-                                    {{-- <a href="{{ route('store') }}" class="btn btn-md full-width theme-bg text-white">Return To Store</a> --}}
-                                    <a href="" class="btn btn-md full-width theme-bg text-white">Return To Store</a>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                @else
-                    <div class="row justify-content-center">
-                        <div class="col-lg-6 col-md-10">
-                            <div class="text-center">
-                                <img src="{{ asset('assets/img/EmptyCart.png') }}" style="width:50%;" class="img-fluid" alt="" />
-                                <br /><br />
-                                <h4>Your cart is empty! Return to the store and add some food items.</h4>
-                                <br />
-                                {{-- <a href="{{ route('store') }}" class="btn btn-md full-width theme-bg text-white">Return To Store</a> --}}
-
-                                <a href="" class="btn btn-md full-width theme-bg text-white">Return To Store</a>
-                            </div>
-                        </div>
-                    </div>
-                @endif
-            </div>
-
-            @if ($cartItemCount != 0)
-                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-                    <div class="dash_crs_cat">
-                        <div class="dash_crs_cat_caption">
-                            <div class="dash_crs_cat_body">
-                                <ul>
-                                    <li>
-                                        @if ($cartItemCount > 1)
-                                            <h6>You have {{ $cartItemCount }} items in your cart</h6>
-                                        @else
-                                            <h6>You have just {{ $cartItemCount }} item in your cart</h6>
-                                        @endif
-                                    </li>
-                                    <li>
-                                        <h6>Tax: 
-                                            <span>
-                                            {{-- {{ $shippingCost }} --}}
-                                            %
-                                        </span>
-                                    </h6></li>
-                                    <li><h6>Sub Total: 
-                                        <span>
-                                            ₦
-                                            {{-- {{ $cartTotal }} --}}
-                                        </span></h6>
-                                    </li>
-                                    <li>
-                                        <h6>Total: <span>
-                                            {{-- @php
-                                                $total = doubleval($cartTotal) + (doubleval($cartTotal) * (doubleval($shippingCost) / 100));
-                                                $total2 = ValueHelper::BalanceFormatter('₦', $total);
-                                            @endphp
-                                            {{ $total2 }} --}}
-                                        </span></h6>
-                                    </li>
-                                    <li>
-                                        {{-- <a href="{{ route('checkout') }}" class="btn btn-md full-width theme-bg text-white">Checkout</a> --}}
-                                        <a href="" class="btn btn-md full-width theme-bg text-white">Checkout</a>
-                                    </li>
-                                    <li>
-                                        {{-- <form method="POST" action="{{ route('jumpToHome') }}"> --}}
-                                        <form method="POST" action="">
-                                            <button type="submit" style="color: #E10C2C; background-color: transparent; border: none;"><span> ← </span>Continue Shopping</button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
+                <div class="panel-group pay_opy980" id="payaccordion">
+                    <!-- Default PickUp Address -->
+                    <div class="panel panel-default border">
+                        <div class="panel-heading" id="pay">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" role="button" data-parent="#payaccordion" href="#" aria-expanded="true" aria-controls="payPal" class="">
+                                    Delivery Address
+                                </a>
+                            </h4>
+                            <p class="">
+                               No 46, bisi Afolabi street
+                            </p>
+                            <a asp-area="" asp-controller="Home" asp-action="ManageAddresses" style="color:#E10C2C;">Change address</a>
                         </div>
                     </div>
                 </div>
-            @endif
+
+                <div class="submit-page mb-4">
+                    <!-- row -->
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="a-2" class="checkbox-custom-label">Select a payment method below</label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--/row -->
+                </div>
+
+                <div class="panel-group pay_opy980" id="payaccordion">
+
+                    <!-- Pay By Account Balance -->
+
+
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12 col-md-12 col-sm-12 mt-5">
+
+                            <div class="crp_box fl_color ovr_top">
+                                <div class="row align-items-center">
+
+
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mt-3">
+                                                <!-- Pay By Paystack -->
+                                                <form action="{{ route('pay') }}" method="post">
+                                                    @csrf
+                                                    <input type="number" value="{{ getInKobo() }}" class="form-control" name="amount" hidden required />
+                                                    <input type="hidden" name="email" value="{{ auth()->user()->UserEmail }}" />
+                                                    <input type="hidden" name="accountType" value="{{ auth()->user()->accountType }}" />
+                                                    <input type="text" id="first-name" value="{{ auth()->user()->Username }}" hidden />
+                                                    <input type="text" id="last-name" value="" hidden />
+                                                    <input type="hidden" name="reference" value="{{ Paystack::genTranxRef() }}">
+                                                    <input type="hidden" name="currency" value="NGN">
+
+                                                    <div class="dro_140">
+                                                        <div class="dro_141">
+                                                            <img src="{{ asset('assets/img/PaystackLogo2.png') }}" width="30" height="30" alt="Paystack brand logo">
+                                                        </div>
+                                                        <div class="dro_142">
+                                                            <h6>Pay with Paystack {{ getInKobo() }}</h6>
+                                                        </div>
+                                                        <div class="dro_142">
+                                                        </div>
+                                                        <button type="submit" onclick="payWithPaystack()" id="paystack-button">Pay</button>
+                                                    </div>
+
+                                                </form>
+                                            </div>
+
+
+
+
+
+
+                                            {{--  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mt-3">
+                                                <!-- Pay By Flutterwave -->
+                                                <form method="POST" action="https://checkout.flutterwave.com/v3/hosted/pay">
+                                                    <input type="number" value="@ViewBag.total" class="form-control" name="amount" hidden required />
+                                                    <input type="hidden" name="public_key" value="FLWPUBK_TEST-bc53d85035a42cf5e6a708a256678ccf-X" />
+                                                    <input type="hidden" name="customer[email]" value="@ViewBag.memberEmail" />
+                                                    <input type="hidden" name="customer[name]" value="@ViewBag.username" />
+                                                    <input type="hidden" name="tx_ref" value="bitethtx-019203" />
+
+                                                    <input type="hidden" name="currency" value="NGN" />
+                                                    <input type="hidden" name="meta[token]" value="54" />
+                                                    <input type="hidden" name="redirect_url" id="redirectURL" value="@ViewBag.flutterwaveRedirectURL" />
+
+
+                                                    <div class="dro_140">
+                                                        <div class="dro_141">
+                                                            <img src="~/assets/img/FlutterwaveLogo2.png" width="35" height="30" alt="Flutterwave brand logo">
+                                                        </div>
+                                                        <div class="dro_142">
+                                                            <h6>Pay with Flutterwave</h6>
+                                                        </div>
+                                                        <div class="dro_142">
+                                                        </div>
+                                                        <button type="submit" id="flutterwave-button">Pay</button>
+                                                    </div>
+
+                                                </form>
+                                            </div>  --}}
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <!-- Col-lg 4 -->
+            <div class="col-lg-4 col-md-12 col-sm-12">
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <h3>Your Order</h3>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="pro_product_wrap">
+                        <h5>Premium</h5>
+                        <ul>
+                            <li><strong>Total Items</strong>{{ getTotalCart() }}</li>
+                            <li><strong>Subtotal</strong>₦ {{ getSubTotalPrice() }}</li>
+                            <li><strong>Tax</strong>5%</li>
+                            <li>
+                                <strong>Total</strong> {{ getTotalPrice() }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+
+                    <a href="{{ route('home.store') }}" type="button" style="color: #E10C2C; background-color: transparent; border: none;"><span> ← </span>Continue Shopping</a>
+
+                </div>
+
+            </div>
+            <!-- /col-lg-4 -->
         </div>
+        <!-- /row -->
+
     </div>
+
 </section>
-<!-- Cart End Section -->
-
-
-@push('scripts')
-    <script src="https://js.paystack.co/v1/inline.js"></script>
-
-    <script>
-        const paymentForm = document.getElementById('paymentForm');
-        paymentForm.addEventListener("submit", payWithPaystack, false);
-        function payWithPaystack(e) {
-            e.preventDefault();
-            let handler = PaystackPop.setup({
-                key: '@ViewBag.paystackPublicKey', // Replace with your public key
-                email: document.getElementById("email").value,
-                amount: document.getElementById("amount").value * 100,
-                ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-                // label: "Optional string that replaces customer email"
-                onClose: function () {
-                    alert('Payment canceled.');
-                },
-                callback: function (response) {
-                    let ourReference = response.reference;
-                    let ourMessage = response.message;
-                    let ourStatus = response.status;
-    
-                    if (ourMessage == "Approved" && ourStatus == "success") {
-                        var eml = document.getElementById("email").value
-                        var topupamount = document.getElementById("amount").value
-                        /**/
-                        window.location.href = "https://foodstuff.store/Home/Checkout?Email=" + eml + "&topup=" + topupamount + "&paymentmethod=Paystack&status=success&transaction_id=" + ourReference + "";
-                        /**/
-                    }
-                }
-            });
-            handler.openIframe();
-        }
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/swipe-pay@2.0.1"></script>
-    <script src="{{ asset('swipe-pay-widget.js') }}"></script>
-@endpush
-
-
 @endsection

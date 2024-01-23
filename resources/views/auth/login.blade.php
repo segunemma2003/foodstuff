@@ -10,7 +10,7 @@
                 {{-- <form method="POST" action="{{ route('home.SignInUser') }}"> --}}
                 <form method="POST" action="{{route('login')}}">
                     @csrf
-                   
+
                     <div class="crs_log_wrap">
                         @error("UserEmail/Phone")
                         <div class="form-group">
@@ -84,9 +84,9 @@
                             </div>
                         </div>
                         <div class="crs_log__footer d-flex justify-content-between">
-                            <div class="fhg_45"><p class="musrt">Don't have an account? 
-                                {{-- <a href="{{ route('home.SignUp') }}" class="theme-cl"> --}}
-                                <a href="/home/signup" class="theme-cl">
+                            <div class="fhg_45"><p class="musrt">Don't have an account?
+                                {{-- <a href="{{ route('register') }}" class="theme-cl"> --}}
+                                <a href="/register" class="theme-cl">
                                     Sign Up
                                 </a></p></div>
                             <div class="fhg_45"><p class="musrt">

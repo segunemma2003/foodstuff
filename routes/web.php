@@ -33,6 +33,7 @@ Auth::routes();
 Route::get('/', [HomeController::class, 'index']);
 Route::post('/createuser', [UserController::class, 'store']);
 Route::get('/add_to_cart/{id}/{quantity}',[LogicController::class, 'addToCart'])->middleware('auth')->name('addToCart');
+Route::get('/remove_to_cart/{id}',[LogicController::class, 'removeCart'])->middleware('auth')->name('removeCart');
 
 
 // Route::get('/home/store', [HomeController::class, 'store'])->name('home.store');
@@ -50,3 +51,5 @@ Route::get('/logmeout',function(){
     return redirect('/');
 
 })->name('logmeout');
+Route::post('/pay', [App\Http\Controllers\PaymentController::class, 'redirectToGateway'])->name('pay');
+Route::get('/payment/callback', [App\Http\Controllers\PaymentController::class, 'handleGatewayCallback']);

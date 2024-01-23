@@ -10,6 +10,16 @@ use Cart;
 
 class LogicController extends Controller
 {
+
+    public function removeCart($id){
+        try{
+            Cart::session(auth()->user()->ID)->remove($id);
+            return redirect()->back();
+
+        }catch(\Exception $e){
+            return redirect()->back();
+        }
+    }
     public function addToCart($id, $quantity){
         try{
         $foodStuff = FoodStuff::where('ID',$id)->first();
@@ -25,7 +35,10 @@ if(!is_null($is_added)){
         'id' => $foodStuff->ID, // inique row ID
 'name' => $foodStuff->Name,
 'price' => $foodStuff->Price,
-'quantity' => $quantity
+'quantity' => $quantity,
+'attributes' => [
+    "images"=> $foodStuff->Image
+],
     ]);
     return redirect()->back();
 }else{
