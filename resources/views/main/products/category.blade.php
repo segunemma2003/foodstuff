@@ -69,27 +69,54 @@
           </div>
         </div>
       @else
-            @foreach ($products as $product)
-            <div class="col-lg-3 col-md-12 mb-4">
-              <div class="card">
-                <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
-                  <img src="{{ $product->Image }}" class="w-100" />
-                  <a href="#!">
-                    <div class="hover-overlay">
-                      <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                    </div>
-                  </a>
-                </div>
-                <div class="card-body">
-                  <a href="{{ url('/product/' . $product->id) }}" class="text-reset">
-                    <h5 class="card-title mb-3">{{ $product->Name }}</h5>
-                  </a>
-                  <p>{{ $product->category }}</p>
-                  <h6 class="mb-3">${{ $product->Price }}</h6>
-                </div>
+      @foreach ($products as $product)
+      <div class="col-lg-3 col-md-12 mb-4">
+        <div class="card">
+          <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
+            <img src="{{ $product->Image }}" class="w-100" data-toggle="modal" data-target="#productModal{{ $product->id }}" />
+            <a href="#!">
+              <div class="hover-overlay">
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
               </div>
+            </a>
+          </div>
+          <div class="card-body">
+            <a href="{{ url('/product/' . $product->id) }}" class="text-reset" data-toggle="modal" data-target="#productModal{{ $product->id }}">
+              <h5 class="card-title mb-3">{{ $product->Name }}</h5>
+            </a>
+            <p>{{ $product->category }}</p>
+            <h6 class="mb-3">₦{{ $product->Price }}</h6>
+            <div class="d-flex justify-content-between align-items-center">
+              <a href="{{ url('/product/' . $product->id . '/buy') }}" class="btn btn-primary mr-2">Buy Now</a>
+              <button class="btn btn-success" onclick="addToCart({{ $product->id }})">Add to Cart</button>
             </div>
-          @endforeach
+          </div>
+        </div>
+      <!-- Product Modal -->
+      <div class="modal fade" id="productModal{{ $product->id }}" tabindex="-1" role="dialog" aria-labelledby="productModalLabel{{ $product->id }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="productModalLabel{{ $product->id }}">{{ $product->Name }} Details</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <!-- Add specific details about the product here -->
+              <p>{{ $product->category }}</p>
+              <p>Product Description: {{ $product->Description }}</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <!-- Add more modal buttons or actions here if needed -->
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    @endforeach
+        
           @endif
           </div>
           <div class="row justify-content-center">
@@ -104,6 +131,8 @@
 
 
 </section>
+
+
 
 <style>
     /* Add this CSS to your stylesheets or inline style tag in your Blade view */

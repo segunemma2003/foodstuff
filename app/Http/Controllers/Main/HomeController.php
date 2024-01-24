@@ -22,9 +22,9 @@ class HomeController extends Controller
         return view('main.home', compact('blogposts', 'categories'));
     }
 
-    public function show($category)
+    public function show($id)
     {
-        $products = Foodstuff::where('category', $category)->cursorPaginate(6); 
+        $products = Foodstuff::where('category', $id)->cursorPaginate(12); 
         $categories = Foodstuffcategroie::all();
         return view('main.products.category', compact('products','categories'));
         
