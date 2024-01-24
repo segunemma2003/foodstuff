@@ -65,7 +65,7 @@
             @if ($products->isEmpty())
         <div class="col-md-12">
           <div class="alert alert-danger" role="alert">
-            No products found for the given category.
+            No products found in this category.
           </div>
         </div>
       @else
@@ -103,7 +103,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <!-- Add specific details about the product here -->
+             
               <p>{{ $product->category }}</p>
               <p>Product Description: {{ $product->Description }}</p>
             </div>
