@@ -31,6 +31,19 @@ class HomeController extends Controller
         return view('main.store', compact('foodStuffs', 'pageItemRangeDisplay', 'totalRelatedFoodStuffItems', 'foodStuffListItemsLength'));
     }
 
+    public function storeFilterByCategory($category){
+        $foodStuffs = FoodStuff::where('category', 'like', '%' . strtolower($category) . '%')->cursorPaginate(50);
+        if ($foodStuffs->isEmpty()) {
+            return redirect()->back();
+        }
+        $pageItemRangeDisplay = '';
+        $totalRelatedFoodStuffItems = '';
+        $foodStuffListItemsLength = '';
+
+
+        return view('main.store', compact('foodStuffs', 'pageItemRangeDisplay', 'totalRelatedFoodStuffItems', 'foodStuffListItemsLength'));
+    }
+
 
 
 
