@@ -53,3 +53,6 @@ Route::get('/logmeout',function(){
 })->name('logmeout');
 Route::post('/pay', [App\Http\Controllers\PaymentController::class, 'redirectToGateway'])->name('pay');
 Route::get('/payment/callback', [App\Http\Controllers\PaymentController::class, 'handleGatewayCallback']);
+
+// routes by Yemi
+Route::get('/store/{category}', [HomeController::class, 'storeFilterByCategory'])->name('storeFilterByCategory');
