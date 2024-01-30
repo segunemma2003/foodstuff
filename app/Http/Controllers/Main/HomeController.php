@@ -11,8 +11,10 @@ use App\Models\Foodstuff as FoodStuff;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Address;
 use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -74,8 +76,29 @@ class HomeController extends Controller
         $cart = Cart::paginate(10);
         $appDefault = Appdefault::all();
         $cartItemCount = '';
-        return view('main.checkout', compact('cart','cartItemCount', 'appDefault'));
+        $address = Address::where('UUID', auth()->user()->UUID)->first();
+        if($address == null){
+            $pick_up_address = null;
+        } else {
+            $pick_up_address = $address->Address;
+        }
+        return view('main.checkout', compact('cart','cartItemCount', 'appDefault', 'pick_up_address'));
     }
+    // save delivery address
+    public function saveDeliveryAddress(Request $request)
+    {
+        $validated = Validator::make($request->all(), [
+            'Address' => 'required',
+            'UUID' => 'nullable',
+        ]);
+
+        $address = Address::firstOrNew(['UUID' => $request->UUID]);
+        $address->Address = $request->Address;
+        $address->save();
+
+        return redirect()->back()->with('success', 'Address added successfully');
+    }
+
     public function contact(){
         return view('main.contact');
     }

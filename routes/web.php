@@ -56,3 +56,4 @@ Route::get('/payment/callback', [App\Http\Controllers\PaymentController::class, 
 
 // routes by Yemi
 Route::get('/store/{category}', [HomeController::class, 'storeFilterByCategory'])->name('storeFilterByCategory');
+Route::post('/save_delivery_address', [HomeController::class, 'saveDeliveryAddress'])->name('saveDeliveryAddress');
