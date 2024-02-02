@@ -217,7 +217,7 @@ class HomeController extends Controller
                     ->orWhere('category', 'like', '%' . $item . '%');
             })->get();
         }
-        $shoppingLists=[];
+        $shoppingLists= collect([]);
         if (auth()->check()) {
             $shoppingLists = NewShoppingList::where('UUID', auth()->user()->UUID)->get();
         }
