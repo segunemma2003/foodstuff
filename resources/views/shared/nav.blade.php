@@ -107,13 +107,13 @@
                         @if(false)
                             <li class="active">
                                 <a asp-area="" asp-controller="Home"
-                                href="{{ route('home.signin') }}"
+                                href="{{ route('getShoppingLists') }}"
                                 asp-action="RequestInvoice">Create Shopping List</a>
                             </li>
                       @else
                             <li>
                                 <a
-                                href="{{ route('home.signin') }}"
+                                href="{{ route('getShoppingLists') }}"
                               asp-action="RequestInvoice">Create Shopping List</a>
                             </li>
                       @endif
