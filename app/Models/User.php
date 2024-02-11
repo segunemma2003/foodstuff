@@ -146,4 +146,15 @@ class User extends  Authenticatable implements FilamentUser, HasName
         return $this->Passphrase;
     }
 
+    public function generateAndSaveApiAuthToken()
+    {
+        // Generate a new API token using Laravel's Str::random() method
+        $apiToken = Str::random(80);
+
+        // Save the generated API token to the user's record in the database
+        $this->api_token = hash('sha256', $apiToken);
+        $this->save();
+        return $this;
+    }
+
 }

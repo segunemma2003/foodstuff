@@ -13,7 +13,6 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             "UserEmail" => "required|email|unique:users",
-            "Username" => "required|unique:users",
             "Phone" => "required|unique:users"
         ]);
         if ($validator->fails()) {
@@ -59,7 +58,7 @@ class AuthController extends Controller
                 "message"=> "kindly login with password"
             ]);
         }
-        
+
         }
 
     }
@@ -75,8 +74,9 @@ class AuthController extends Controller
             $user = User::where("UserEmail", $request->UserEmail)->first();
 
             if(!is_null($user)){
+                $result = $user->Passphrase;
 
-                if(\Hash::check($request->Passphrase, $user->Passphrase)){
+                // if(\Hash::check($request->Passphrase, $result)){
 
                     Auth::login($user);
                     $user = Auth::user()
@@ -85,13 +85,13 @@ class AuthController extends Controller
                         "data" => $user,
                         "status"=> "success"
                     ], 200);
-                }
+                // }
             }
             return response()->json(['message' => 'Error.....', "status"=>"failed"], 401);
         } catch (\Exception $e) {
             // Log the exception
             \Log::error('Authentication failed: ' . $e->getMessage());
-            return response()->json(['message' => 'Error.....', "status"=>"failed"], 401);
+            return response()->json(['message' => $e->getMessage(), "status"=>"failed"], 401);
         }
 
     }

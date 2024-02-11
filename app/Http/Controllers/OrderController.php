@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderRequest;
 use App\Models\Order;
+use App\Models\Invoice;
+use App\Models\User;
+use App\Models\Activity;
+
 
 class OrderController extends Controller
 {
@@ -16,9 +20,64 @@ class OrderController extends Controller
 
     public function store(OrderRequest $request)
     {
-        $order = Order::create($request->all());
+        // $order = Order::create($request->all());
+        $uuid = $request->UUID;
+        $paymentmethod = $request->PaymentMethod;
+        $ordertype = $request->ordertype;
+        $price = $request->price;
+        $invoiceid = $request->InvoiceID;
+        $status = $request->Status;
+        $budget = $request->Budget;
+        $address = $request->Address;
+        $address = $request->Total;
+        $address = $request->Tax;
+        $user= User::where("UUID", $uuid)->first();
 
-        return response(['data' => $order ], 201);
+        if($ordertype =="cart"){
+
+            $order = Order::create([
+                "UUID"=>$uuid,
+                "FullName"=>$user->Username,
+                "InvoiceID"=> $invoiceid,
+                "price"=> $price,
+                "Tax" => $tax,
+                "Total"=> $total,
+                "PaymentMethod"=> $paymentmethod,
+                "Status"=>'pending',
+                "Address"=>$address,
+                "created_at"=>time()
+            ]);
+            if ($paymentmethod == "creditbalance") {
+
+
+                $oldcredit = floatval($user->Credit);
+                $newcredit =  $oldcredit - floatval($price);
+                $user->Credit =  $newcredit;
+                $user->save();
+            }
+
+        }elseif($ordertype == "requestedinvoice"){
+            $invoice = Invoice::create([
+                "UUID"=>$uuid,
+                "InvoiceID"=> $invoiceid,
+                "FullName"=> $user->Username,
+                "Budget"=>$budget,
+                "Status"=>$status,
+                "Address"=>$address,
+                "IsCartOrder"=>false
+            ]);
+
+        }
+
+        $activity = Activity::create([
+            // "uuid"=>
+            "UUID"=>$uuid,
+            "Message"=>"Successfully purchase item, order on it's way. Payment Method: $paymentmethod",
+            "Seen"=>"false",
+            "Type"=>"transaction"
+        ]);
+
+        return response(['data' => "success" ], 201);
 
     }
 
