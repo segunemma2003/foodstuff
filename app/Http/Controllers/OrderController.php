@@ -31,8 +31,8 @@ class OrderController extends Controller
         $status = $request->Status;
         $budget = $request->Budget;
         $address = $request->Address;
-        $total = $request->Total;
-        $tax = $request->Tax;
+        // $total = $request->Total;
+        // $tax = $request->Tax;
         $user= User::where("UUID", $uuid)->first();
         $order = null;
 
@@ -42,8 +42,8 @@ class OrderController extends Controller
                 "FullName"=>$user->Username,
                 "InvoiceID"=> $invoiceid,
                 "price"=> $price,
-                "Tax" => $tax,
-                "Total"=> $total,
+                "Tax" => 0,
+                "Total"=> $price,
                 "PaymentMethod"=> $paymentmethod,
                 "Status"=>'pending',
                 "Address"=>$address,
