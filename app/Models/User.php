@@ -104,8 +104,8 @@ class User extends  Authenticatable implements FilamentUser, HasName
         $this->UserEmail = $request["UserEmail"]?? $request['email'];
         $this->email = $request["UserEmail"]?? $request['email'];
         $this->AccountType = $request->AccountType ?? "Regular";
-        $this->Passphrase =$request["password"]? Hash::make($request["password"]):Hash::make($request["Passphrase"]) ;
-        $this->password = $request["Passphrase"]? Hash::make($request["Passphrase"]):Hash::make($request["password"]) ;
+        $this->Passphrase =array_key_exists("password", $request)? Hash::make($request["password"]):Hash::make($request["Passphrase"]) ;
+        $this->password = array_key_exists("Passphrase", $request)? Hash::make($request["Passphrase"]):Hash::make($request["password"]) ;
         $this->Image = $request->Image ?? "Default";
         $this->Phone = $request["Phone"];
         $this->Username = $request["Username"]??$this->UserEmail;
