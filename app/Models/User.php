@@ -14,10 +14,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Str;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasName;
 use Hash;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticatable ;
 
-
+use Filament\Panel;
 
 
 /**
@@ -43,9 +45,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  *
  * @package App\Models
  */
-class User extends  Authenticatable
+class User extends  Authenticatable implements FilamentUser, HasName
 {
-  
+
     use HasApiTokens, HasFactory, Notifiable;
 
 	protected $table = 'users';
@@ -77,18 +79,36 @@ class User extends  Authenticatable
 		'AffiliateID',
 		'EmailVerified',
 		'PhoneVerified',
-		'CartTotal'
+		'CartTotal',
+        'email',
+        'password'
 	];
+
+
+    public function getFilamentName(): string
+    {
+        return "{$this->Username}";
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        // Implement your logic here to determine if the user can access the panel
+        // based on the provided $panel parameter.
+        // For demonstration purposes, let's assume all users can access the panel.
+        return true;
+    }
 
     public function saveUser($request) : self
     {
-       
-        $this->UserEmail = $request["UserEmail"];
+
+        $this->UserEmail = $request["UserEmail"]?? $request['email'];
+        $this->email = $request["UserEmail"]?? $request['email'];
         $this->AccountType = $request->AccountType ?? "Regular";
-        $this->Passphrase = Hash::make($request["Passphrase"]);
+        $this->Passphrase =$request["password"]? Hash::make($request["password"]):Hash::make($request["Passphrase"]) ;
+        $this->password = $request["Passphrase"]? Hash::make($request["Passphrase"]):Hash::make($request["password"]) ;
         $this->Image = $request->Image ?? "Default";
         $this->Phone = $request["Phone"];
-        $this->Username = $request["Username"];
+        $this->Username = $request["Username"]??$this->UserEmail;
         $this->TempPin = Str::random(10);
         $this->Status = "active";
         $this->Credit = $request->Credit?? "0.00";

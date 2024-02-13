@@ -41,7 +41,7 @@ Route::post('/submit_to_cart',[LogicController::class, 'pushToCart'])->middlewar
 // Route::get('/home/activities', [])
 Route::post('/SearchFoodStuff', [HomeController::class, "searchfoodstuff"]);
 Route::auto('/home', HomeController::class);
-Route::auto('/admin', AdminController::class);
+// Route::auto('/admin', AdminController::class);
 
 
 Route::get('/logmeout',function(){
