@@ -34,6 +34,7 @@ Route::get('/', [HomeController::class, 'index']);
 Route::post('/createuser', [UserController::class, 'store']);
 Route::get('/add_to_cart/{id}/{quantity}',[LogicController::class, 'addToCart'])->middleware('auth')->name('addToCart');
 Route::get('/remove_to_cart/{id}',[LogicController::class, 'removeCart'])->middleware('auth')->name('removeCart');
+Route::post('/submit_to_cart',[LogicController::class, 'pushToCart'])->middleware('auth')->name('submit.shopping.list');
 
 
 // Route::get('/home/store', [HomeController::class, 'store'])->name('home.store');
@@ -53,3 +54,12 @@ Route::get('/logmeout',function(){
 })->name('logmeout');
 Route::post('/pay', [App\Http\Controllers\PaymentController::class, 'redirectToGateway'])->name('pay');
 Route::get('/payment/callback', [App\Http\Controllers\PaymentController::class, 'handleGatewayCallback']);
+
+// routes by Yemi
+Route::get('/store/{category}', [HomeController::class, 'storeFilterByCategory'])->name('storeFilterByCategory');
+Route::post('/save_delivery_address', [HomeController::class, 'saveDeliveryAddress'])->name('saveDeliveryAddress');
+Route::get('/shopping_lists', [HomeController::class, 'showShoppingPage'])->name('getShoppingLists');
+Route::post('/shopping_lists', [HomeController::class, 'manageShoppingList'])->middleware('auth')->name('saveShoppingLists');
+Route::delete('/shopping-list/{id}', [HomeController::class, 'deleteShoppingListItem'])->name('shopping-list.delete');
+Route::patch('/shopping-list/{id}', [HomeController::class, 'updateShoppingListItem'])->name('shopping-list.update');
+

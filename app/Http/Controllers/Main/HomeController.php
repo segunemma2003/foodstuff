@@ -11,8 +11,11 @@ use App\Models\Foodstuff as FoodStuff;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Address;
+use App\Models\NewShoppingList;
 use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -31,8 +34,18 @@ class HomeController extends Controller
         return view('main.store', compact('foodStuffs', 'pageItemRangeDisplay', 'totalRelatedFoodStuffItems', 'foodStuffListItemsLength'));
     }
 
+    public function storeFilterByCategory($category){
+        $foodStuffs = FoodStuff::where('category', 'like', '%' . strtolower($category) . '%')->cursorPaginate(50);
+        if ($foodStuffs->isEmpty()) {
+            return redirect()->back();
+        }
+        $pageItemRangeDisplay = '';
+        $totalRelatedFoodStuffItems = '';
+        $foodStuffListItemsLength = '';
 
 
+        return view('main.store', compact('foodStuffs', 'pageItemRangeDisplay', 'totalRelatedFoodStuffItems', 'foodStuffListItemsLength'));
+    }
 
 
     public function activities(){
@@ -61,8 +74,29 @@ class HomeController extends Controller
         $cart = Cart::paginate(10);
         $appDefault = Appdefault::all();
         $cartItemCount = '';
-        return view('main.checkout', compact('cart','cartItemCount', 'appDefault'));
+        $address = Address::where('UUID', auth()->user()->UUID)->first();
+        if($address == null){
+            $pick_up_address = null;
+        } else {
+            $pick_up_address = $address->Address;
+        }
+        return view('main.checkout', compact('cart','cartItemCount', 'appDefault', 'pick_up_address'));
     }
+    // save delivery address
+    public function saveDeliveryAddress(Request $request)
+    {
+        $validated = Validator::make($request->all(), [
+            'Address' => 'required',
+            'UUID' => 'nullable',
+        ]);
+
+        $address = Address::firstOrNew(['UUID' => $request->UUID]);
+        $address->Address = $request->Address;
+        $address->save();
+
+        return redirect()->back()->with('success', 'Address added successfully');
+    }
+
     public function contact(){
         return view('main.contact');
     }
@@ -147,11 +181,6 @@ class HomeController extends Controller
         return view('auth.register');
     }
 
-    // create user
-
-
-
-
     public function statistics(){
         return view('main.statistics');
     }
@@ -175,6 +204,87 @@ class HomeController extends Controller
     public function topup(){
         $Model = [''];
         return view('main.topup', compact('Model'));
+    }
+    
+    public function showShoppingPage(Request $request)
+    {
+        $foodStuffs = FoodStuff::inRandomOrder()->limit(4)->get();
+        $item = '';
+        if ($request->item) {
+            $item = $request->item;
+            $foodStuffs = FoodStuff::where(function ($query) use ($item) {
+                $query->where('name', 'like', '%' . $item . '%')
+                    ->orWhere('category', 'like', '%' . $item . '%');
+            })->get();
+        }
+        $shoppingLists=[];
+        if (auth()->check()) {
+            $shoppingLists = NewShoppingList::where('UUID', auth()->user()->UUID)->get();
+        }
+        // dd($shoppingLists);
+
+        return view('main.shopping_list', compact('foodStuffs', 'item', 'shoppingLists'));
+    }
+
+    public function manageShoppingList(Request $request)
+    {
+        
+        $foodstuff = FoodStuff::where('ID', $request->foodstuff)->first();
+        // Get the authenticated user's UUID
+        $userUUID = auth()->user()->UUID;
+        // dd($foodstuff);
+        // Find or create a shopping list item with the given product_id and user UUID
+        $shoppingListItem = NewShoppingList::updateOrCreate(
+            ['product_id' => $foodstuff->ID, 'UUID' => $userUUID],
+            [
+                'name' => $foodstuff->Name,
+                'quantity' => \DB::raw('quantity + 1'), // Increase quantity by 1
+                'image' => $foodstuff->Image,
+                'price' => $foodstuff->Price,
+            ]
+        );
+
+        // dd('saved');
+        // Redirect back with a success message
+        return redirect()->back()->with('message', 'Item has been added to your Shopping List!');
+    }
+
+    public function deleteShoppingListItem(Request $request, $id)
+    {
+        // Get the authenticated user's UUID
+        $userUUID = auth()->user()->UUID;
+
+        // Find the shopping list item with the given ID and user UUID
+        $shoppingListItem = NewShoppingList::where('id', $id)->where('UUID', $userUUID)->first();
+
+        // Check if the item exists
+        if ($shoppingListItem) {
+            // Delete the item
+            $shoppingListItem->delete();
+
+            return redirect()->back()->with('message', 'Item has been removed from your Shopping List!');
+        } else {
+            return redirect()->back()->with('error', 'Item not found in your Shopping List.');
+        }
+    }
+
+    public function updateShoppingListItem(Request $request, $id)
+    {
+        // Get the authenticated user's UUID
+        $userUUID = auth()->user()->UUID;
+
+        // Find the shopping list item with the given ID and user UUID
+        $shoppingListItem = NewShoppingList::where('id', $id)->where('UUID', $userUUID)->first();
+        // Check if the item exists
+        if ($shoppingListItem) {
+            // update the item
+            $shoppingListItem->quantity = $request->quantity;
+            $shoppingListItem->save();
+
+            return redirect()->back()->with('message', 'Item has been updated!');
+        } else {
+            return redirect()->back()->with('error', 'Item not found in your Shopping List.');
+        }
     }
 
 }

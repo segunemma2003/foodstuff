@@ -232,7 +232,7 @@
             <!-- Single Category -->
             <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                 <div class="crs_cate_wrap style_2">
-                    <a href="grid-layout-with-sidebar.html" class="crs_cate_box">
+                    <a href="{{route('storeFilterByCategory', ['category'=>'vegetable'])}}" class="crs_cate_box">
                         <div class="crs_cate_icon"><img src="assets/img/Category1.png" class="img-fluid" alt="" /></div>
                         <div class="crs_cate_caption"><span>Vegetables</span></div>
                         <div class="crs_cate_count"><span>10,000+ Items</span></div>
@@ -241,7 +241,7 @@
             </div>
             <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                 <div class="crs_cate_wrap style_2">
-                    <a href="grid-layout-with-sidebar.html" class="crs_cate_box">
+                    <a href="{{route('storeFilterByCategory', ['category'=>'Processed'])}}" class="crs_cate_box">
                         <div class="crs_cate_icon"><img src="assets/img/Category2.png" class="img-fluid" alt="" /></div>
                         <div class="crs_cate_caption"><span>Processed Foods</span></div>
                         <div class="crs_cate_count"><span>40,000+ Items</span></div>
@@ -250,7 +250,7 @@
             </div>
             <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                 <div class="crs_cate_wrap style_2">
-                    <a href="grid-layout-with-sidebar.html" class="crs_cate_box">
+                    <a href="{{route('storeFilterByCategory', ['category'=>'Endermic'])}}" class="crs_cate_box">
                         <div class="crs_cate_icon"><img src="assets/img/Category3.png" class="img-fluid" alt="" /></div>
                         <div class="crs_cate_caption"><span>Endermic Products</span></div>
                         <div class="crs_cate_count"><span>200+ Items</span></div>
@@ -259,7 +259,7 @@
             </div>
             <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                 <div class="crs_cate_wrap style_2">
-                    <a href="grid-layout-with-sidebar.html" class="crs_cate_box">
+                    <a href="{{route('storeFilterByCategory', ['category'=>'Protein'])}}" class="crs_cate_box">
                         <div class="crs_cate_icon"><img src="assets/img/Category4.png" class="img-fluid" alt="" /></div>
                         <div class="crs_cate_caption"><span>Proteins</span></div>
                         <div class="crs_cate_count"><span>200+ Items</span></div>
@@ -268,7 +268,7 @@
             </div>
             <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                 <div class="crs_cate_wrap style_2">
-                    <a href="grid-layout-with-sidebar.html" class="crs_cate_box">
+                    <a href="{{route('storeFilterByCategory', ['category'=>'Grain'])}}" class="crs_cate_box">
                         <div class="crs_cate_icon"><img src="assets/img/Category5.png" class="img-fluid" alt="" /></div>
                         <div class="crs_cate_caption"><span>Grains</span></div>
                         <div class="crs_cate_count"><span>200+ Items</span></div>
@@ -277,7 +277,7 @@
             </div>
             <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                 <div class="crs_cate_wrap style_2">
-                    <a href="grid-layout-with-sidebar.html" class="crs_cate_box">
+                    <a href="{{route('storeFilterByCategory', ['category'=>'Fruit'])}}" class="crs_cate_box">
                         <div class="crs_cate_icon"><img src="assets/img/Category6.png" class="img-fluid" alt="" /></div>
                         <div class="crs_cate_caption"><span>Fruits</span></div>
                         <div class="crs_cate_count"><span>5000+ Items</span></div>
@@ -286,7 +286,7 @@
             </div>
             <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                 <div class="crs_cate_wrap style_2">
-                    <a href="grid-layout-with-sidebar.html" class="crs_cate_box">
+                    <a href="{{route('storeFilterByCategory', ['category'=>'Oil'])}}" class="crs_cate_box">
                         <div class="crs_cate_icon"><img src="assets/img/Category7.png" class="img-fluid" alt="" /></div>
                         <div class="crs_cate_caption"><span>Oils</span></div>
                         <div class="crs_cate_count"><span>200+ Items</span></div>
@@ -295,7 +295,7 @@
             </div>
             <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                 <div class="crs_cate_wrap style_2">
-                    <a href="grid-layout-with-sidebar.html" class="crs_cate_box">
+                    <a href="{{route('storeFilterByCategory', ['category'=>'Nut'])}}" class="crs_cate_box">
                         <div class="crs_cate_icon"><img src="assets/img/Category8.png" class="img-fluid" alt="" /></div>
                         <div class="crs_cate_caption"><span>Nuts</span></div>
                         <div class="crs_cate_count"><span>200+ Items</span></div>
