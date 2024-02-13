@@ -7,7 +7,9 @@ use App\Models\Order;
 use App\Models\Invoice;
 use App\Models\User;
 use App\Models\Activity;
-
+use App\Jobs\SendEmailQueueJob;
+use Mail;
+use App\Mail\OrderCreated;
 
 class OrderController extends Controller
 {
@@ -29,12 +31,12 @@ class OrderController extends Controller
         $status = $request->Status;
         $budget = $request->Budget;
         $address = $request->Address;
-        $address = $request->Total;
-        $address = $request->Tax;
+        $total = $request->Total;
+        $tax = $request->Tax;
         $user= User::where("UUID", $uuid)->first();
+        $order = null;
 
         if($ordertype =="cart"){
-
             $order = Order::create([
                 "UUID"=>$uuid,
                 "FullName"=>$user->Username,
@@ -55,6 +57,18 @@ class OrderController extends Controller
                 $user->Credit =  $newcredit;
                 $user->save();
             }
+
+            $send_mail = [
+                'segunemma2003@gmail.com',
+                'youngpresido94@gmail.com',
+                'tenebediana.foodstuffstore@gmail.com',
+                'bomadokubo10@gmail.com',
+                'maryusoh25@gmail.com',
+                'suwaibatusaidu@gmail.com'
+            ];
+
+            $email = new OrderCreated($order, $user);
+            Mail::to($send_mail)->queue($email);
 
         }elseif($ordertype == "requestedinvoice"){
             $invoice = Invoice::create([
@@ -77,6 +91,7 @@ class OrderController extends Controller
             "Type"=>"transaction"
         ]);
 
+        // dispatch(new SendEmailQueueJob($send_mail));
         return response(['data' => "success" ], 201);
 
     }
