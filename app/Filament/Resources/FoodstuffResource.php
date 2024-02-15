@@ -69,8 +69,8 @@ class FoodstuffResource extends Resource
                         (string)  $filename =  str($file->getClientOriginalName())->prepend(time());
                         $result = cloudinary()->uploadFile($file->getRealPath(),[
                             'transformation'=> [
-                                // 'width' => 150,
-                                // 'height'=> 150,
+                                'width' => 300,
+                                'height'=> 300,
                                 'quality'=>"auto",
                                 'fetch_format'=>"auto"
                             ]
