@@ -52,38 +52,46 @@
                     </div>
                 </div>
                 @endif
+                @if (count($errors) > 0)
+                    @foreach ($errors->all() as $error)
+                    <div class="alert alert-danger alert-dismissible">
+                        <button class="close" type="button" data-dismiss="alert">x</button>
+                        ⚠ {{$error}}
+                    </div>
+                    @endforeach
+                @endif
                 {{-- <form method="post" action="{{ route('contact.foodstuff.store') }}"> --}}
-                <form method="post" action="">
+                <form method="post" action="{{ route('send.contact_email') }}" >
                     @csrf
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                             <div class="form-group">
                                 <label>Full Name</label>
-                                <input type="text" class="form-control" placeholder="Your full name" name="Name" value="{{ session('Name') }}" required />
+                                <input type="text" class="form-control" placeholder="Your full name" name="name" value="{{ session('Name') }}" required />
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" class="form-control" placeholder="Your email address" name="Email" value="{{ session('Email') }}" required />
+                                <input type="email" class="form-control" placeholder="Your email address" name="email" value="{{ session('Email') }}" required />
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                             <div class="form-group">
                                 <label>Company (Optional)</label>
-                                <input type="text" class="form-control" placeholder="Your company name (optional)" value="{{ session('Company') }}" name="Company" />
+                                <input type="text" class="form-control" placeholder="Your company name (optional)" value="{{ session('Company') }}" name="company" />
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                             <div class="form-group">
                                 <label>Phone (Optional)</label>
-                                <input type="number" class="form-control" placeholder="Your phone number (optional)" value="{{ session('PhoneNumber') }}" name="PhoneNumber" />
+                                <input type="number" class="form-control" placeholder="Your phone number (optional)" value="{{ session('PhoneNumber') }}" name="phone" />
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                             <div class="form-group">
                                 <label>Department</label>
-                                <select class="form-control" name="Department">
+                                <select class="form-control" name="department">
                                     @php
                                         $departments = [
                                             'Service Inquiry' => 'Service Inquiry',
@@ -109,13 +117,13 @@
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                             <div class="form-group">
                                 <label>Subject</label>
-                                <input type="text" class="form-control" placeholder="What are we talking about?" value="{{ session('subject') }}" name="Subject" required />
+                                <input type="text" class="form-control" placeholder="What are we talking about?" value="{{ session('subject') }}" name="subject" required />
                             </div>
                         </div>
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                             <div class="form-group">
                                 <label>Message</label>
-                                <textarea class="form-control" placeholder="Your Message" name="Message" required rows="4">{{ session('Message') }}</textarea>
+                                <textarea class="form-control" placeholder="Your Message" name="message" required rows="4">{{ session('Message') }}</textarea>
                             </div>
                         </div>
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">

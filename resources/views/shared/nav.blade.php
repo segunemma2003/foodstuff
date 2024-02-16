@@ -119,53 +119,6 @@
                       @endif
 
                     {{--  @{
-                        if (ViewBag.corePageLink == "LogisticsAndDistribution" || ViewBag.corePageLink == "OurApps" || ViewBag.corePageLink == "BuyNowPayLater" || ViewBag.corePageLink == "AffiliateProgram")
-                        {  --}}
-                        @if(1==0)
-                            <li class="active">
-                                <a href="#">Services<span class="submenu-indicator"></span></a>
-                                <ul class="nav-dropdown nav-submenu">
-
-                                    <li><a
-                                     href="{{ route('home.signin') }}" >Create Shopping List</a></li>
-
-                                    <li><a
-                                        href="{{ route('home.logistics') }}"
-                                        >Logistics and Distribution</a></li>
-                                    <li><a asp-action="OurApps">Our App</a></li>
-                                    <li><a
-                                        href="{{ route('home.buynow') }}"
-                                        >Buy Now Pay Later</a></li>
-                                    <li><a  href="{{ route('home.affiliate') }}" >Affiliate Program</a></li>
-                                </ul>
-                            </li>
-                    @else
-                            <li>
-                                <a href="#">Services<span class="submenu-indicator"></span></a>
-                                <ul class="nav-dropdown nav-submenu">
-                                    <li><a
-                                        href="{{ route('home.signin') }}" asp-action="RequestInvoice">Create Shopping List</a></li>
-                                    <li><a
-                                        href="{{ route('home.storedistribution') }}"
-                                        asp-action="StoreDistribution">Store Distribution</a></li>
-
-                                    <li><a
-                                        href="{{ route('home.logistics') }}"
-                                       >Logistics and Distribution</a></li>
-                                    <li><a
-                                        href="{{ route('home.ourapp') }}"
-                                    asp-action="OurApps">Our App</a></li>
-                                    <li><a
-                                        href="{{ route('home.buynow') }}"
-                                        >Buy Now Pay Later</a></li>
-                                    <li><a
-                                        href="{{ route('home.affiliate') }}"
-                                        >Affiliate Program</a></li>
-                                </ul>
-                            </li>
-                  @endif
-
-                    {{--  @{
                         if (ViewBag.corePageLink == "OurStory" || ViewBag.corePageLink == "Blog" || ViewBag.corePageLink == "HelpCenter" || ViewBag.corePageLink == "TermsAndConditions" || ViewBag.corePageLink == "PrivacyPolicy" || ViewBag.corePageLink == "RefundPolicy" || ViewBag.corePageLink == "CookiePolicy" || ViewBag.corePageLink == "ShippingPolicy" || ViewBag.corePageLink == "EULA")
                         {  --}}
                         @if(false)
@@ -238,8 +191,6 @@
                             <li>
                                 <a href="#">Account<span class="submenu-indicator"></span></a>
                                 <ul class="nav-dropdown nav-submenu">
-                                    <li><a asp-action="RequestInvoice">Create Shopping List</a></li>
-                                    <li><a asp-action="Cart">Cart</a></li>
                                     <li><a asp-action="Likes">Likes</a></li>
                                     <li><a asp-action="LastPurchase">Last Purchase</a></li>
                                     <li>
@@ -255,11 +206,9 @@
 
                                             <li><a asp-action="ManageAddresses">Manage Addresses</a></li>
                                             <li><a asp-action="TopUp">Top-Up</a></li>
-                                            <li><a asp-action="ManageInvoice">Manage Invoice</a></li>
                                         </ul>
                                     </li>
                                     <li><a asp-action="Activities">Activity</a></li>
-                                    <li><a asp-action="ManageRestaurants">My Restaurants</a></li>
                                     <li><a data-toggle="modal" data-target="#logout" href="#">Sign Out</a></li>
                                 </ul>
                             </li>
