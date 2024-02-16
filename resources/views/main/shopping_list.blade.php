@@ -4,6 +4,11 @@
 <!-- resources/views/main/shopping_list -->
 @section('content')
     <style>
+        .loading {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
         .shopping-list-wrapper {
             display: flex;
             flex-direction: column;
@@ -105,6 +110,10 @@
                             <div class="row justify-content-center">
                                 <div class="col-lg-8">
                                     <h1>My Shopping Lists</h1>
+                                    <br>
+                                    <span>Total cost: ₦{{$shoppingLists->sum(function ($item) {
+                                        return $item->price * $item->quantity;
+                                    })}}</span>
                                     <div class="table-responsive">
                                         <table class="table table-bordered">
                                             <thead>
@@ -206,6 +215,9 @@
 
         // Function to add selected product to list via AJAX
         function addProductToList(product) {
+            // Disable the page
+            $('body').addClass('loading');
+
             $.ajax({
                 url: "{{ route('saveShoppingLists') }}",
                 type: "POST",
@@ -230,6 +242,10 @@
                         const response = JSON.parse(xhr.responseText);
                         alert(response.error);
                     }
+                },
+                complete: function() {
+                    // Enable the page
+                    $('body').removeClass('loading');
                 }
             });
         }

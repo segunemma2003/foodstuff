@@ -64,10 +64,16 @@ class LogicController extends Controller
         // Get the authenticated user's UUID
         $userUUID = auth()->user()->UUID;
 
+        // Get the shopping list items for the user
         $shoppingLists = NewShoppingList::where('UUID', $userUUID)->get();
+
+        // Clear the cart before adding new items
+        Cart::session(auth()->user()->ID)->clear();
+
         foreach ($shoppingLists as $shoppingList) {
+            // Add each item to the cart
             Cart::session(auth()->user()->ID)->add([
-                'id' => $shoppingList->id, // inique row ID
+                'id' => $shoppingList->id, // unique row ID
                 'name' => $shoppingList->name,
                 'price' => $shoppingList->price,
                 'quantity' => $shoppingList->quantity,
@@ -76,12 +82,13 @@ class LogicController extends Controller
                 ],
             ]);
 
-            // clear list
+            // clear shopping list item
             $this->clearShoppingList($shoppingList->id, $userUUID);
         }
 
         return redirect()->route('home.checkout');
     }
+
 
     public function pushToCartNew(Request $request)
     {
