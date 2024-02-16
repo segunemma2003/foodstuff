@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Foodstuff as FoodStuff;
 use Cart;
 use App\Models\NewShoppingList;
+use App\Models\Address;
+use App\Models\Appdefault;
 
 
 class LogicController extends Controller
@@ -64,13 +66,37 @@ class LogicController extends Controller
 
         $shoppingLists = NewShoppingList::where('UUID', $userUUID)->get();
         foreach ($shoppingLists as $shoppingList) {
-            $this->addToCart($shoppingList->product_id, $shoppingList->quantity);
+            Cart::session(auth()->user()->ID)->add([
+                'id' => $shoppingList->id, // inique row ID
+                'name' => $shoppingList->name,
+                'price' => $shoppingList->price,
+                'quantity' => $shoppingList->quantity,
+                'attributes' => [
+                    "images"=> $shoppingList->image
+                ],
+            ]);
 
             // clear list
             $this->clearShoppingList($shoppingList->id, $userUUID);
         }
 
-        return redirect()->route('home.cart');
+        return redirect()->route('home.checkout');
+    }
+
+    public function pushToCartNew(Request $request)
+    {
+        // Get the authenticated user's UUID
+        $userUUID = auth()->user()->UUID;
+        $cart = NewShoppingList::where('UUID', $userUUID)->paginate(10);
+        $appDefault = Appdefault::all();
+        $cartItemCount = '';
+        $address = Address::where('UUID', $userUUID)->first();
+        if($address == null){
+            $pick_up_address = null;
+        } else {
+            $pick_up_address = $address->Address;
+        }
+        return view('main.checkout', compact('cart','cartItemCount', 'appDefault', 'pick_up_address'));
     }
 
     public function clearShoppingList($id, $userUUID)
@@ -87,6 +113,19 @@ class LogicController extends Controller
         } else {
             return redirect()->back()->with('error', 'Item not found in your Shopping List.');
         }
+    }
+
+    public function checkoutShopingList(){
+        $cart = NewShoppingList::where('UUID', $userUUID)->paginate(10);
+        $appDefault = Appdefault::all();
+        $cartItemCount = '';
+        $address = Address::where('UUID', auth()->user()->UUID)->first();
+        if($address == null){
+            $pick_up_address = null;
+        } else {
+            $pick_up_address = $address->Address;
+        }
+        return view('main.checkout', compact('cart','cartItemCount', 'appDefault', 'pick_up_address'));
     }
 
 }
