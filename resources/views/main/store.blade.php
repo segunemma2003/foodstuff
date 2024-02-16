@@ -139,7 +139,7 @@
                                                         <h4>
                                                             <span class="currency">₦</span>
                                                             <span style="margin-left: 0px; padding-left:0px"
-                                                                class="theme-cl">{{ $data->Price }}</span>
+                                                                class="theme-cl">{{ number_format($data->Price, 2) }}</span>
                                                         </h4>
 
                                                     </div>
@@ -207,7 +207,7 @@
                                                             <div class="crs_fl_last">
                                                                 <div class="crs_price">
                                                                     <h4><span class="currency">₦</span><span
-                                                                            class="theme-cl">{{ $data->Price }}</span>
+                                                                            class="theme-cl">{{ number_format($data->Price, 2) }}</span>
                                                                     </h4>
                                                                 </div>
                                                             </div>

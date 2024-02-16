@@ -267,7 +267,7 @@
                                                             width="30" height="30" alt="Paystack brand logo">
                                                     </div>
                                                     <div class="dro_142">
-                                                        <h6>Pay with Paystack {{ getInKobo() }}</h6>
+                                                        <h6>Pay with Paystack </h6>
                                                     </div>
                                                     <div class="dro_142">
                                                     </div>
@@ -335,10 +335,10 @@
                             <h5>Premium</h5>
                             <ul>
                                 <li><strong>Total Items</strong>{{ getTotalCart() }}</li>
-                                <li><strong>Subtotal</strong>₦ {{ getSubTotalPrice() }}</li>
+                                <li><strong>Subtotal</strong>₦ {{ number_format(getSubTotalPrice(),2) }}</li>
                                 <li><strong>Tax</strong>5%</li>
                                 <li>
-                                    <strong>Total</strong> ₦ {{ getTotalPrice() }}
+                                    <strong>Total</strong> ₦ {{ number_format(getTotalPrice(),2) }}
                                 </li>
                             </ul>
                         </div>
