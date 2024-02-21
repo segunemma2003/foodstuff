@@ -16,6 +16,9 @@ use App\Models\NewShoppingList;
 use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ContactMail;
+use App\Models\ContactEmail;
 
 class HomeController extends Controller
 {
@@ -80,6 +83,7 @@ class HomeController extends Controller
         } else {
             $pick_up_address = $address->Address;
         }
+        // dd($cart);
         return view('main.checkout', compact('cart','cartItemCount', 'appDefault', 'pick_up_address'));
     }
     // save delivery address
@@ -99,6 +103,29 @@ class HomeController extends Controller
 
     public function contact(){
         return view('main.contact');
+    }
+    public function sendContactEmail(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'company' => 'nullable|string',
+            'phone' => 'nullable|string',
+            'department' => 'required|string',
+            'subject' => 'required|string',
+            'message' => 'required|string',
+        ]);
+
+        // Save the email details to the database
+        ContactEmail::create($validatedData);
+
+        // Send email to multiple recipients
+        $recipients = ['email1@example.com', 'email2@example.com', 'email3@example.com']; // Add your recipients here
+        foreach ($recipients as $recipient) {
+            Mail::to($recipient)->send(new ContactMail($validatedData));
+        }
+
+        return back()->with('successMessage', 'Your message has been sent successfully!');
     }
     public function cookie(){
         return view('main.cookie');
@@ -208,11 +235,11 @@ class HomeController extends Controller
     
     public function showShoppingPage(Request $request)
     {
-        $foodStuffs = FoodStuff::inRandomOrder()->limit(4)->get();
+        $foodstuffs = FoodStuff::all();
         $item = '';
         if ($request->item) {
             $item = $request->item;
-            $foodStuffs = FoodStuff::where(function ($query) use ($item) {
+            $foodstuffs = FoodStuff::where(function ($query) use ($item) {
                 $query->where('name', 'like', '%' . $item . '%')
                     ->orWhere('category', 'like', '%' . $item . '%');
             })->get();
@@ -223,16 +250,28 @@ class HomeController extends Controller
         }
         // dd($shoppingLists);
 
-        return view('main.shopping_list', compact('foodStuffs', 'item', 'shoppingLists'));
+        return view('main.shopping_list', compact('foodstuffs', 'item', 'shoppingLists'));
     }
 
+    public function getShoppingList()
+    {
+        $shoppingLists= collect([]);
+        if (auth()->check()) {
+            $shoppingLists = NewShoppingList::where('UUID', auth()->user()->UUID)->get();
+        }
+    }
+    
     public function manageShoppingList(Request $request)
     {
-        
-        $foodstuff = FoodStuff::where('ID', $request->foodstuff)->first();
+        $foodstuff = FoodStuff::find($request->foodstuff);
+
+        if (!$foodstuff) {
+            return response()->json(['error' => 'Product not found: '. $request->foodstuff], 404);
+        }
+
         // Get the authenticated user's UUID
         $userUUID = auth()->user()->UUID;
-        // dd($foodstuff);
+
         // Find or create a shopping list item with the given product_id and user UUID
         $shoppingListItem = NewShoppingList::updateOrCreate(
             ['product_id' => $foodstuff->ID, 'UUID' => $userUUID],
@@ -244,9 +283,8 @@ class HomeController extends Controller
             ]
         );
 
-        // dd('saved');
-        // Redirect back with a success message
-        return redirect()->back()->with('message', 'Item has been added to your Shopping List!');
+        // Return a success response
+        return response()->json(['message' => 'Item has been added to your Shopping List']);
     }
 
     public function deleteShoppingListItem(Request $request, $id)
@@ -279,6 +317,7 @@ class HomeController extends Controller
         if ($shoppingListItem) {
             // update the item
             $shoppingListItem->quantity = $request->quantity;
+            $shoppingListItem->price = $request->price;
             $shoppingListItem->save();
 
             return redirect()->back()->with('message', 'Item has been updated!');
