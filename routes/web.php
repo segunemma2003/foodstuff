@@ -62,5 +62,6 @@ Route::get('/shopping_lists', [HomeController::class, 'showShoppingPage'])->name
 Route::post('/shopping_lists', [HomeController::class, 'manageShoppingList'])->middleware('auth')->name('saveShoppingLists');
 Route::delete('/shopping-list/{id}', [HomeController::class, 'deleteShoppingListItem'])->name('shopping-list.delete');
 Route::patch('/shopping-list/{id}', [HomeController::class, 'updateShoppingListItem'])->name('shopping-list.update');
+Route::delete('/clear-shopping-list', [HomeController::class, 'clearShoppingListItem'])->name('shopping-list.clear');
 Route::post('/send-contact-email', [HomeController::class, 'sendContactEmail'])->name('send.contact_email');
 
