@@ -14,7 +14,7 @@
                             Get your food items from farms and industries that have a history of providing the best raw and processed food products from all over the world.
                         </p>
                         <div class="inline_btn">
-                            <a asp-area="" asp-controller="Home" asp-action="RequestInvoice" class="btn theme-bg text-white">Create Shopping List</a>
+                            <a href="{{ route('getShoppingLists') }}" class="btn theme-bg text-white">Create Shopping List</a>
                             <a href="#" onclick="playYoutubeVideo()" data-toggle="modal" data-target="#video" class="btn text-dark pl-sm-0"><span class="esli_vd"><i class="fa fa-play"></i></span>How It Works?</a>
                         </div>
                     </div>
@@ -160,7 +160,7 @@
                                 <h4>Visit Our Online Market Place</h4>
                                 <p>
                                     Since you're already reading this, we assume you are on our website. To get started.
-                                    Goto our <a href="{{ route('home.signin') }}"  style="color:#E10C2C;">Create Shopping List</a> page. You can also download our mobile application
+                                    Goto our <a href="{{ route('getShoppingLists') }}"  style="color:#E10C2C;">Create Shopping List</a> page. You can also download our mobile application
                                     available on both the <a href="#" target="_blank" style="color:#E10C2C;">Apple Store</a> and the <a href="#" target="_blank" style="color:#E10C2C;">Play Store</a>.
                                 </p>
                             </div>
@@ -309,7 +309,7 @@
 <div class="clearfix"></div>
 <!-- ============================ Featured Categories End ================================== -->
 <!-- ============================ article Start ================================== -->
-<section class="min">
+<section class="min" style="padding: 10px; overflow-x: hidden;">
     <div class="container">
 
         <div class="row justify-content-center">
@@ -422,7 +422,7 @@
                         <h3>Do You Have A Shopping List {{ "?" }} </h3>
                         <span>Based of your budget, we'll help you negotiate price with our suppliers and get back to you shortly.</span>
                     </div>
-                    <a href={{route("home.signin")}} class="btn btn-call_action_wrap text-dark">Create Shopping List</a>
+                    <a href='{{ route('getShoppingLists') }}' class="btn btn-call_action_wrap text-dark">Create Shopping List</a>
                 </div>
 
             </div>
