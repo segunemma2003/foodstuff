@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Cart
- * 
+ *
  * @property int $ID
  * @property string $UUID
  * @property string $ProductID
@@ -40,4 +40,10 @@ class Cart extends Model
 		'OrderID',
 		'ServerDateTime'
 	];
+
+
+    public function product(){
+        return $this->hasOne("App\Models\Foodstuff","ProductID","ProductID");
+    }
 }
+

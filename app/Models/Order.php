@@ -27,4 +27,11 @@ class Order extends Model
 		'status',
 		'PaymentMethod'
 	];
+
+
+    public function carts(){
+        return $this->hasMany("App\Models\Cart", "OrderID", "InvoiceID");
+    }
+
+
 }

@@ -67,6 +67,8 @@ class OrderController extends Controller
                 'suwaibatusaidu@gmail.com'
             ];
 
+
+
             $email = new OrderCreated($order, $user);
             Mail::to($send_mail)->queue($email);
 
