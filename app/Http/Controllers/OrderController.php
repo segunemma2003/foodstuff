@@ -37,6 +37,17 @@ class OrderController extends Controller
         $order = null;
 
         if($ordertype =="cart"){
+            if ($paymentmethod == "creditbalance") {
+                $oldcredit = floatval($user->Credit);
+                if($oldcredit < $price){
+                    return response(['data' => "insufficient fund" ], 402);
+                }
+
+                $newcredit =  $oldcredit - floatval($price);
+                $user->Credit =  $newcredit;
+                $user->save();
+            }
+
             $order = Order::create([
                 "UUID"=>$uuid,
                 "FullName"=>$user->Username,
@@ -49,14 +60,6 @@ class OrderController extends Controller
                 "Address"=>$address,
                 "created_at"=>time()
             ]);
-            if ($paymentmethod == "creditbalance") {
-
-
-                $oldcredit = floatval($user->Credit);
-                $newcredit =  $oldcredit - floatval($price);
-                $user->Credit =  $newcredit;
-                $user->save();
-            }
 
             $send_mail = [
                 'segunemma2003@gmail.com',

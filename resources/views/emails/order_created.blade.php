@@ -28,7 +28,7 @@
             <li>{{ $item->cart->product->Name }} - Quantity: {{ $cart->quantity }}</li>
             @endforeach
         </ul>
-        <li><strong>Total Amount:</strong> ${{ $order->price }}</li>
+        <li><strong>Total Amount:</strong> NGN{{ $order->price }}</li>
     </ul>
 
     <p>Thanks & Regards.</p>
