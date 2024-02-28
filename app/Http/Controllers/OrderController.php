@@ -38,6 +38,7 @@ class OrderController extends Controller
         $user= User::where("UUID", $uuid)->first();
         $order = null;
         $products = json_decode($products_item);
+        var_dump($products);
         if(!is_null($products) && count($products) > 0){
             foreach($products as $product){
                 $carts = Cart::create([
@@ -56,7 +57,7 @@ class OrderController extends Controller
                 "data"=>null,
                 "message"=>"no data",
                 "status"=>"failed"
-            ]);
+            ],500);
         }
         if($ordertype =="cart"){
 
