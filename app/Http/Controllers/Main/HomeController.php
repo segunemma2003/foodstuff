@@ -306,6 +306,17 @@ class HomeController extends Controller
         }
     }
 
+    public function clearShoppingListItem(Request $request)
+    {
+        // Get the authenticated user's UUID
+        $userUUID = auth()->user()->UUID;
+
+        // Get the shopping list items for the user
+        $shoppingLists = NewShoppingList::where('UUID', $userUUID)->delete();
+
+        return redirect()->back()->with('message', 'Shopping Lists Cleared!');
+    }
+
     public function updateShoppingListItem(Request $request, $id)
     {
         // Get the authenticated user's UUID
