@@ -32,11 +32,12 @@ class OrderController extends Controller
         $status = $request->Status;
         $budget = $request->Budget;
         $address = $request->Address;
-        $products = $request->products;
+        $products_item = $request->products;
         // $total = $request->Total;
         // $tax = $request->Tax;
         $user= User::where("UUID", $uuid)->first();
         $order = null;
+        $products = json_decode($products_item);
         if(!is_null($products) && count($products) > 0){
             foreach($products as $product){
                 $carts = Cart::create([
