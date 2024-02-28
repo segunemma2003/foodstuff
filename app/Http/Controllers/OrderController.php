@@ -57,7 +57,7 @@ class OrderController extends Controller
                 "data"=>null,
                 "message"=>"no data",
                 "status"=>"failed"
-            ],500);
+            ],522);
         }
         if($ordertype =="cart"){
 
