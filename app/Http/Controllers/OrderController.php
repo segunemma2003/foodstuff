@@ -10,6 +10,7 @@ use App\Models\Activity;
 use App\Jobs\SendEmailQueueJob;
 use Mail;
 use App\Mail\OrderCreated;
+use App\Models\Cart;
 
 class OrderController extends Controller
 {
@@ -31,12 +32,33 @@ class OrderController extends Controller
         $status = $request->Status;
         $budget = $request->Budget;
         $address = $request->Address;
+        $products = $request->products;
         // $total = $request->Total;
         // $tax = $request->Tax;
         $user= User::where("UUID", $uuid)->first();
         $order = null;
+        if(!is_null($products) && count($products) > 0){
+            foreach($products as $product){
+                $carts = Cart::create([
+                    "UUID" => $uuid,
+                    "ProductID"=> $product['id'],
+                    "Status"=>"Open",
+                    "Quantity"=>$product['quantity'],
+                    "OrderID"=>$invoiceid
+                ]);
 
+            }
+            // \DB::commit();
+
+        }else{
+            return response()->json([
+                "data"=>null,
+                "message"=>"no data",
+                "status"=>"failed"
+            ]);
+        }
         if($ordertype =="cart"){
+
             if ($paymentmethod == "creditbalance") {
                 $oldcredit = floatval($user->Credit);
                 if($oldcredit < $price){
