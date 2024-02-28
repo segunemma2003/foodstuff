@@ -97,7 +97,7 @@ class OrderController extends Controller
 
 
             $email = new OrderCreated($order, $user);
-            Mail::to($send_mail)->send($email);
+            Mail::to($send_mail)->queue($email);
 
         }elseif($ordertype == "requestedinvoice"){
             $invoice = Invoice::create([
