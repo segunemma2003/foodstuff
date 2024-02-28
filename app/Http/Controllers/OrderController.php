@@ -37,8 +37,8 @@ class OrderController extends Controller
         // $tax = $request->Tax;
         $user= User::where("UUID", $uuid)->first();
         $order = null;
-        $products = json_decode($products_item);
-        var_dump($products);
+        $products = json_decode($products_item, true);
+        // var_dump($products);
         if(!is_null($products) && count($products) > 0){
             foreach($products as $product){
                 $carts = Cart::create([
