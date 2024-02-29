@@ -23,11 +23,11 @@
         <li><strong>User:</strong> {{ $user->Username }}</li>
         <li><strong>Address:</strong> {{ $order->Address }}</li>
         <li><strong>Order:</strong></li>
-        <ul>
+        {{--  <ul>
             @foreach($order->carts as $cart)
             <li>{{ $item->cart->product->Name }} - Quantity: {{ $cart->quantity }}</li>
             @endforeach
-        </ul>
+        </ul>  --}}
         <li><strong>Total Amount:</strong> NGN{{ $order->price }}</li>
     </ul>
 
