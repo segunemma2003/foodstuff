@@ -26,11 +26,11 @@
         <ul>
             @foreach($order->carts as $cart)
                 @if($cart->Status=="open" || $cart->Status=="Open")
-                    <li>{{ $cart->product->Name }} - Quantity: {{ $cart->Quantity }} - Price: {{ $cart->price }}</li>
+                    <li>{{ $cart->product->Name }} - Quantity: {{ $cart->Quantity }} - Price: {{ number_format($cart->price, 2) }}</li>
                 @endif
             @endforeach
         </ul>
-        <li><strong>Total Amount:</strong> NGN{{ $order->price }}</li>
+        <li><strong>Total Amount:</strong> NGN{{ number_format($order->price, 2) }}</li>
     </ul>
 
     <p>Thanks & Regards.</p>
