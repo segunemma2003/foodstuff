@@ -45,6 +45,7 @@ class OrderController extends Controller
                     "UUID" => $uuid,
                     "ProductID"=> $product['id'],
                     "Status"=>"Open",
+                    "price"=>$product['price'],
                     "Quantity"=>$product['quantity'],
                     "OrderID"=>$invoiceid
                 ]);

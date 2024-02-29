@@ -38,7 +38,8 @@ class Cart extends Model
 		'Status',
 		'Quantity',
 		'OrderID',
-		'ServerDateTime'
+		'ServerDateTime',
+        'price'
 	];
 
 
