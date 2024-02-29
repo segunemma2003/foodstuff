@@ -25,9 +25,9 @@
         <li><strong>Order:</strong></li>
         <ul>
             @foreach($order->carts as $cart)
-            @if($cart->status=="open" || $cart->status=="Open")
-            <li>{{ $cart->product->Name }} - Quantity: {{ $cart->Quantity }} - Price: {{ $cart->price }}</li>
-           @endif
+                @if($cart->Status=="open" || $cart->Status=="Open")
+                    <li>{{ $cart->product->Name }} - Quantity: {{ $cart->Quantity }} - Price: {{ $cart->price }}</li>
+                @endif
             @endforeach
         </ul>
         <li><strong>Total Amount:</strong> NGN{{ $order->price }}</li>
