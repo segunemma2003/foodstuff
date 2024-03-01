@@ -270,7 +270,6 @@
                     "foodstuff": product.ID
                 },
                 success: function(response) {
-                    alert('Item has been added to your Shopping List!');
                     // Refresh the page
                     location.reload();
                 },
@@ -279,6 +278,7 @@
                     if (xhr.status === 401) {
                         // Handle unauthorized error (user not logged in)
                         alert('You are not logged in. Please log in to add items to your Shopping List.');
+                        window.location.href = '/home/signin';
                     } else {
                         // Handle other errors
                         const response = JSON.parse(xhr.responseText);
