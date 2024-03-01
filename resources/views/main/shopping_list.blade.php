@@ -278,6 +278,7 @@
                     if (xhr.status === 401) {
                         // Handle unauthorized error (user not logged in)
                         alert('You are not logged in. Please log in to add items to your Shopping List.');
+                        // redirect to signin page
                         window.location.href = '/home/signin';
                     } else {
                         // Handle other errors
