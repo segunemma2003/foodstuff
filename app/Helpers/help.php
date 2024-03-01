@@ -1,6 +1,7 @@
 <?php
 
 
+
 function isEmptyCart(){
    return Cart::session(auth()->user()->ID)->isEmpty();
 }
@@ -43,3 +44,6 @@ function getTotalPrice(){
     $total = $subtotal + $tax;
     return $total;
 }
+
+
+

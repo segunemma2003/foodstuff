@@ -26,7 +26,7 @@ class ShoppinglistController extends Controller
     public function store_in_bulk(Request $request){
         $data = $request->all();
         $shops = json_decode($data['items'], true);
-      
+
         for($i=0; $i < count($shops); $i++){
             $shop = new Shoppinglist([
                 "UUID" => $data['uuid'],
@@ -34,7 +34,7 @@ class ShoppinglistController extends Controller
                 "Status" => "open",
                 "Name" => $shops[$i]["name"],
                 "Quantity" => $shops[$i]["quantity"],
-                "Price" => "0.00"
+                "Price" => $shops[$i]["price"]
             ]);
             $shop->save();
         }

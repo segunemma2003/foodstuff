@@ -179,7 +179,7 @@ public function login2(Request $request)
         // $user["password"] = $user->
     //    dd($user);
         if ($user && Hash::check($request->input('Passphrase'), $user->Passphrase)) {
-          dd(Auth::login($user));
+        //   dd(Auth::login($user));
            return redirect("/");
         } else {
             return redirect("/home/signin")->withErrors(['UserEmail/Phone' => 'Invalid Credentials 2!']);

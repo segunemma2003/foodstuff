@@ -84,7 +84,7 @@
                                                         $sum = intval($data->Price) * intval($data->Quantity);
                                                     @endphp --}}
                                                     {{-- <p>Sum: ₦{{ $sum }}</p> --}}
-                                                    <p>Sum: ₦{{ $data->getPriceSum() }} </p>
+                                                    <p>Sum: ₦{{ number_format($data->getPriceSum(), 2) }} </p>
                                                 {{-- @endif --}}
                                             </span>
                                             {{-- <span class="tb_date">
@@ -98,7 +98,7 @@
                                                 }
                                             </span> --}}
                                         </th>
-                                        <td><span class="wish_price theme-cl">₦{{ $data->price }}</span></td>
+                                        <td><span class="wish_price theme-cl">₦{{ number_format($data->price,2) }}</span></td>
                                         <td><input  oninput="reflectData(this,{{ $data->id }})" type="number" id="input_{{ $data->id }}" style="background-color: transparent; width:75px; border: none;" onkeypress="this.style.width = ((this.value.length + 1) * 18) + 'px';" value="{{ $data->quantity }}" /></td>
                                         <td>
                                             <div class="dropdown show">
@@ -158,10 +158,10 @@
                                         @endif
                                     </li>
                                     <li><h6>Tax: <span>5%</span></h6></li>
-                                    <li><h6>Sub Total: <span>₦ {{ getSubTotalPrice() }}</span></h6></li>
+                                    <li><h6>Sub Total: <span>₦ {{ number_format(getSubTotalPrice(), 2) }}</span></h6></li>
                                     <li>
                                         <h6>Total: <span>
-                                            ₦ {{ getTotalPrice() }}
+                                            ₦ {{ number_format(getTotalPrice(),2) }}
                                             {{-- @php
                                                 $total = doubleval($cartTotal) + (doubleval($cartTotal) * (doubleval($shippingCost) / 100));
                                                 $total2 = ValueHelper::BalanceFormatter('₦', $total);
