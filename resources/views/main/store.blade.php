@@ -4,10 +4,8 @@
 
     <!-- ============================ Store Items ================================== -->
     <section class="gray mt-5">
-
-
-
-        <div class="container">
+        
+        <div class="container" style="width: 100%; overflow-x: hidden">
 
             <div class="row justify-content-center">
                 <div b-cti5zrxsij class="container">
@@ -30,7 +28,7 @@
                                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-11 ">
                                     <div b-cti5zrxsij class="form-group ">
                                         <div class="input-group">
-                                            <div class="col-12">
+                                            <div class="col-10">
                                                 <select name="category" class="form-control  select2-hidden-accesible "
                                                     style="width:100% !important" id="cates" data-select2-id="cates"
                                                     tabindex="-1" aria-hidden="true">
