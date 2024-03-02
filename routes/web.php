@@ -59,9 +59,11 @@ Route::get('/payment/callback', [App\Http\Controllers\PaymentController::class, 
 Route::get('/store/{category}', [HomeController::class, 'storeFilterByCategory'])->name('storeFilterByCategory');
 Route::post('/save_delivery_address', [HomeController::class, 'saveDeliveryAddress'])->name('saveDeliveryAddress');
 Route::get('/shopping_lists', [HomeController::class, 'showShoppingPage'])->name('getShoppingLists');
+// ajax endpoint
+Route::get('/shopping_lists_data', [HomeController::class, 'getShoppingListsData']);
 Route::post('/shopping_lists', [HomeController::class, 'manageShoppingList'])->middleware('auth')->name('saveShoppingLists');
-Route::delete('/shopping-list/{id}', [HomeController::class, 'deleteShoppingListItem'])->name('shopping-list.delete');
-Route::patch('/shopping-list/{id}', [HomeController::class, 'updateShoppingListItem'])->name('shopping-list.update');
+Route::post('/shopping-list/delete/{id}', [HomeController::class, 'deleteShoppingListItem']);
+Route::post('/shopping-list/update/{id}', [HomeController::class, 'updateShoppingListItem']);
 Route::delete('/clear-shopping-list', [HomeController::class, 'clearShoppingListItem'])->name('shopping-list.clear');
 Route::post('/send-contact-email', [HomeController::class, 'sendContactEmail'])->name('send.contact_email');
 

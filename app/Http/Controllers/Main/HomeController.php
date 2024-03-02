@@ -253,12 +253,14 @@ class HomeController extends Controller
         return view('main.shopping_list', compact('foodstuffs', 'item', 'shoppingLists'));
     }
 
-    public function getShoppingList()
+    public function getShoppingListsData()
     {
-        $shoppingLists= collect([]);
+        $shoppingLists = collect([]);
         if (auth()->check()) {
             $shoppingLists = NewShoppingList::where('UUID', auth()->user()->UUID)->get();
         }
+        
+        return response()->json(['shoppingLists' => $shoppingLists]);
     }
     
     public function manageShoppingList(Request $request)
