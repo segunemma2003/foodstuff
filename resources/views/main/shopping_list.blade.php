@@ -175,8 +175,8 @@
                     "foodstuff": product.ID
                 },
                 success: function(response) {
-                    // Refresh the page
-                    location.reload();
+                    // Refresh the list
+                    getShoppingListsData()
                 },
                 error: function(xhr, status, error) {
                     console.error(xhr.responseText); // Log error response
