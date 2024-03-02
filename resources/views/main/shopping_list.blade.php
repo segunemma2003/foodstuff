@@ -8,6 +8,7 @@
             pointer-events: none;
             opacity: 0.5;
         }
+
         .suggestions-dropdown {
             display: flex;
             flex-direction: column;
@@ -35,7 +36,7 @@
         .div_container {
             display: flex;
         }
-        
+
         .main_table {
             width: 80%;
             overflow: auto;
@@ -53,7 +54,7 @@
                 display: flex;
                 flex-direction: column;
             }
-            
+
             .main_table {
                 width: 100%;
             }
@@ -94,8 +95,8 @@
                         <!-- search box and suggestions dropdown -->
                         <div class="form-group">
                             <div class="smalls input-with-icon">
-                                <input spellcheck="true" autocomplete="on" type="text"
-                                    name="item" value="{{ $item ?? '' }}" max="100" maxlength="100"
+                                <input spellcheck="true" autocomplete="on" type="text" name="item"
+                                    value="{{ $item ?? '' }}" max="100" maxlength="100"
                                     placeholder="Search For Food Items" class="form-control" style="height:54px"
                                     oninput="handleSearchInput(event)" required />
                                 <i class="ti-search"></i>
@@ -103,112 +104,16 @@
                             <div style="display: block;">
                                 <div id="suggestionsDropdown" class="suggestions-dropdown col-md-8">
                                     <!-- Suggestions will be dynamically generated here -->
-                                </div>                                
+                                </div>
                             </div>
                         </div>
                         <!-- End of search box and suggestions dropdown -->
                     </div>
-                    @if ($shoppingLists->isEmpty())
-                        <div class="text-center col-lg-6 mx-auto">
-                            <img src="{{ asset('assets/img/EmptyCart.png') }}" style="width:50%;" class="img-fluid" alt="" />
-                            <br /><br />
-                            <h4>Your list is empty! Start adding to list by using the search box.</h4>
-                            <br />
-                            <a href="{{ route('home.store') }}" class="btn btn-md full-width theme-bg text-white">Return To Store</a>
-                        </div>
-                    @else
-                        <h1>My Shopping List</h1>
-                        <div class="row col-lg-12 div_container">
-                            <div class="table responsive main_table">
-                                <table class="table table-bordered col-sm-12">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Image</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Price</th>
-                                            <th scope="col">Quantity</th>
-                                            <th scope="col">Total Price</th>
-                                            <th scope="col">Update</th>
-                                            <th scope="col">Delete</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($shoppingLists as $product)
-                                        <tr>
-                                            <td><img src="{{ $product->image }}" alt="{{ $product->name }}" class="product-image" style="max-width: 100px; max-height: 100px;"></td>
-                                            <td>{{ $product->name }}</td>
-                                            <form action="{{ route('shopping-list.update', ['id' => $product->id]) }}" method="POST">
-                                                @csrf
-                                                @method('PATCH')
-                                                <td>
-                                                    <div class="input-group">
-                                                        <input style="width: 100px" type="number" class="form-control" name="price" value="{{ $product->price }}" min="1">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="input-group">
-                                                        <input type="number" class="form-control" name="quantity" value="{{ $product->quantity }}" min="1">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    ₦{{ $product->quantity * $product->price }}
-                                                </td>
-                                                <td>
-                                                    <button type="submit" class="btn btn-primary mt-2">Update</button>
-                                                </td>
-                                            </form>
-                                            <td>
-                                                <form action="{{ route('shopping-list.delete', ['id' => $product->id]) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to remove from list?')">Remove <i class="fas fa-trash"></i></button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                            
-                            <div class="summary_table">
-                                <ul>
-                                    <li style="border-bottom: 1px solid #333; padding: 5px;">
-                                        <h6>You have {{ $shoppingLists->count() }} items in your list</h6>
-                                    </li>
-                                    <li style="border-bottom: 1px solid #333; padding: 5px;">
-                                        <h6>Tax: <span>5%</span></h6>
-                                    </li>
-                                    <li style="border-bottom: 1px solid #333; padding: 5px;">
-                                        <h6>Sub Total
-                                            <span>: ₦{{ $subTotal = $shoppingLists->sum(function ($item) {
-                                                    return $item->price * $item->quantity;
-                                                }) }}</span>
-                                        </h6>
-                                    </li>
-                                    <li style="padding: 5px;">
-                                        <h6>Total: <span>
-                                            ₦ {{ number_format($total = $subTotal + ($subTotal * 0.05), 2) }}
-                                        </span></h6>
-                                    </li>                                                
-                                    <li style="padding: 5px;">
-                                        <form action="{{ route('submit.shopping.list') }}" method="post">
-                                            @csrf
-                                            <button type="submit" style="width: 100%" class="btn btn-success">Submit Shopping List</button>
-                                        </form>
-                                    </li>                                          
-                                    <li style="padding: 5px;">
-                                        <form action="{{ route('shopping-list.clear') }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" style="width: 100%" class="btn btn-danger" onclick="return confirm('Are you sure to clear all list?')">Clear Shopping List</button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>                                        
-                    @endif
+                    <div id="shopping_list_contents">
+                        {{-- shoppinglist content --}}
+                    </div>
                 </div>
-            </div>            
+            </div>
         </div>
 
     </section>
@@ -278,6 +183,7 @@
                     if (xhr.status === 401) {
                         // Handle unauthorized error (user not logged in)
                         alert('You are not logged in. Please log in to add items to your Shopping List.');
+                        // redirect to signin page
                         window.location.href = '/home/signin';
                     } else {
                         // Handle other errors
@@ -291,6 +197,168 @@
                 }
             });
         }
+
+        // document.addEventListener('DOMContentLoaded', loadShoppingList({!! json_encode($shoppingLists) !!}));
+        document.addEventListener('DOMContentLoaded', getShoppingListsData());
+
+        function loadShoppingList(shoppingLists) {
+            const shoppingListContents = document.getElementById('shopping_list_contents');
+
+            if (shoppingLists.length === 0) {
+                shoppingListContents.innerHTML = `
+                    <div class="text-center col-lg-6 mx-auto">
+                        <img src="${window.location.origin}/assets/img/EmptyCart.png" style="width:50%;" class="img-fluid" alt="" />
+                        <br /><br />
+                        <h4>Your list is empty! Start adding to list by using the search box.</h4>
+                        <br />
+                        <a href="${window.location.origin}/home/store" class="btn btn-md full-width theme-bg text-white">Return To Store</a>
+                    </div>
+                `;
+            } else {
+                let html = `
+                    <h1>My Shopping List</h1>
+                    <div class="row col-lg-12 div_container">
+                        <div class="table responsive main_table">
+                            <table class="table table-bordered col-sm-12">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Total Price</th>
+                                        <th scope="col">Update</th>
+                                        <th scope="col">Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                `;
+
+                shoppingLists.forEach(product => {
+                    html += `
+                        <tr>
+                            <td><img src="${product.image}" alt="${product.name}" class="product-image" style="max-width: 100px; max-height: 100px;"></td>
+                            <td>${product.name}</td>
+                            <td>
+                                <div class="input-group">
+                                    <input id="price_${product.id}" style="width: 100px" type="number" class="form-control" name="price" value="${product.price}" min="1">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input id="quantity_${product.id}" type="number" class="form-control" name="quantity" value="${product.quantity}" min="1">
+                                </div>
+                            </td>
+                            <td>
+                                ₦${product.quantity * product.price}
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary mt-2" onclick="updateShoppingList(${product.id})">Update</button>
+                            </td>
+                            <td>
+                                <form action="/shopping-list/delete/${product.id}" method="POST">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to remove from list?')">Remove <i class="fas fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                html += `
+                    </tbody>
+                    </table>
+                    </div>
+                
+                        <div class="summary_table">
+                            <ul>
+                                <li style="border-bottom: 1px solid #333; padding: 5px;">
+                                    <h6>You have ${shoppingLists.length} items in your list</h6>
+                                </li>
+                                <li style="border-bottom: 1px solid #333; padding: 5px;">
+                                    <h6>Tax: <span>5%</span></h6>
+                                </li>
+                                <li style="border-bottom: 1px solid #333; padding: 5px;">
+                                    <h6>Sub Total
+                                        <span>: ₦${shoppingLists.reduce((total, item) => total + (item.price * item.quantity), 0)}</span>
+                                    </h6>
+                                </li>
+                                <li style="padding: 5px;">
+                                    <h6>Total: <span>
+                                        ₦ ${shoppingLists.reduce((total, item) => total + (item.price * item.quantity), 0) * 1.05}</span></h6>
+                                </li>                                                
+                                <li style="padding: 5px;">
+                                    <form action="${window.location.origin}/submit.shopping.list" method="post">
+                                        <button type="submit" style="width: 100%" class="btn btn-success">Submit Shopping List</button>
+                                    </form>
+                                </li>                                          
+                                <li style="padding: 5px;">
+                                    <form action="${window.location.origin}/shopping-list/clear" method="POST">
+                                        <button type="submit" style="width: 100%" class="btn btn-danger" onclick="return confirm('Are you sure to clear all list?')">Clear Shopping List</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>                                        
+                `;
+
+                shoppingListContents.innerHTML = html;
+            }
+        };
+
+        function getShoppingListsData() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/shopping_lists_data', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        var responseData = JSON.parse(xhr.responseText);
+                        loadShoppingList(responseData.shoppingLists);
+                    } else {
+                        console.error('Error fetching shopping lists data:', xhr.status);
+                    }
+                }
+            };
+            xhr.send();
+        }
+
+        function updateShoppingList(productId) {
+            document.body.classList.add('loading');
+
+            // Retrieve the updated price and quantity values
+            var updatedPrice = document.getElementById('price_' + productId).value;
+            var updatedQuantity = document.getElementById('quantity_' + productId).value;
+
+            // Construct the form data
+            var formData = new FormData();
+            formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+            formData.append('price', updatedPrice);
+            formData.append('quantity', updatedQuantity);
+
+            // Send the AJAX request to update the shopping list
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', `/shopping-list/update/${productId}`, true);
+            xhr.setRequestHeader('X-CSRF-TOKEN', formData.get('_token'));
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Handle success
+                        console.log('Shopping list updated successfully!');
+                        // Load the shopping list after successful update
+                        setTimeout(() => {
+                            document.body.classList.remove('loading');
+                            getShoppingListsData();
+                        }, 500);
+                    } else {
+                        // Handle error
+                        alert('Error updating shopping list:', xhr.status);
+                        document.body.classList.remove('loading');
+                    }
+                }
+            };
+            xhr.send(formData);
+        }
     </script>
-    
+
 @endsection
